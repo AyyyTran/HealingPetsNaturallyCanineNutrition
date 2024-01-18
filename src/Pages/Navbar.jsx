@@ -22,7 +22,7 @@ const Navbar = () => {
         <img src="/logo-transparent.svg" alt="Logo" className="h-16 lg:h-20" />
       </Link>
       <ul className="hidden lg:flex lg:items-center  ">
-        <li className="p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 ">
+        <li className="p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl ">
           <Link
             to="about"
             spy={true}
@@ -33,7 +33,7 @@ const Navbar = () => {
             About
           </Link>
         </li>
-        <li className="p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110">
+        <li className="p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl">
           <Link
             to="services"
             spy={true}
@@ -44,7 +44,7 @@ const Navbar = () => {
             Services
           </Link>
         </li>
-        <li className="p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 ">
+        <li className="p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl ">
           <Link
             to="plans"
             spy={true}
@@ -55,7 +55,7 @@ const Navbar = () => {
             Plans
           </Link>
         </li>
-        <li className="p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 ">
+        <li className="p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl ">
           <Link
             to="reviews"
             spy={true}
@@ -108,7 +108,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul className="uppercase">
-          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 ">
+          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl ">
             <Link
               to="about"
               spy={true}
@@ -120,7 +120,7 @@ const Navbar = () => {
               About
             </Link>
           </li>
-          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110">
+          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl">
             <Link
               to="services"
               spy={true}
@@ -132,7 +132,7 @@ const Navbar = () => {
               Services
             </Link>
           </li>
-          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110">
+          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl">
             <Link
               to="plans"
               spy={true}
@@ -144,7 +144,7 @@ const Navbar = () => {
               Plans
             </Link>
           </li>
-          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-1 hover:scale-110">
+          <li className="flex justify-center p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl">
             <Link
               to="reviews"
               spy={true}
