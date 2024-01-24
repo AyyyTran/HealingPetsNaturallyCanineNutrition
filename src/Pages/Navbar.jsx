@@ -13,7 +13,7 @@ const Navbar = () => {
     // add top padding of h-16 and lg:h-20
     <navbar className="fixed top-0 z-50 flex items-center justify-between px-4 text-lg lg:text-xl w-full h-16 bg-secondary text-white lg:h-20">
       <Link
-        className="w-40 text-3xl font-bold text-white hover:cursor-pointer flex items-center justify-center "
+        className="w-1/2 text-3xl font-bold text-white hover:cursor-pointer flex lg:items-center lg:w-40 lg:justify-center "
         to="hero"
         spy={true}
         smooth={true}
