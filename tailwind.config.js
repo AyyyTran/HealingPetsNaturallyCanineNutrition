@@ -9,6 +9,7 @@ module.exports = {
       accent: '#99BAD6',
       white: '#FFFFFF',
       dark: '#48494B',
+      grey: '#C6C4C4',
     },
     fontFamily: {
       sans: ['General Sans', 'sans-serif'],

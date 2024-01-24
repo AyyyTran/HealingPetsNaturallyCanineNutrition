@@ -2,7 +2,7 @@ import React from 'react';
 
 const Disclaimer = () => {
   return (
-    <div className="mt-64 flex-col justify-center items-center">
+    <div className="flex-col justify-center items-center py-8">
       <div className="text-2xl font-bold py-2">Medical Disclaimer:</div>
       <div className="text-l text-center lg:mx-auto lg:max-w-4xl">
         The material and information provided is for informational purposes
