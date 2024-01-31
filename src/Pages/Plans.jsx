@@ -6,7 +6,7 @@ const Plans = () => {
       <h1 className="text-grey text-3xl py-4">Consultation Plans</h1>
 
       <div className="p-4 md:grid md:grid-cols-3">
-        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between">
+        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
           <h2 className="text-xl font-semibold text-darkblue">
             Supplement Plan
           </h2>
@@ -21,7 +21,7 @@ const Plans = () => {
           <div className="font-bold py-4 text-xl ">$55 CAD</div>
         </div>
 
-        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between">
+        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
           <h2 className="text-xl font-semibold text-darkblue">
             Premium Consultation Plan
           </h2>
@@ -52,7 +52,7 @@ const Plans = () => {
           <div className="font-bold py-4 text-xl">$130 CAD</div>
         </div>
 
-        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between">
+        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
           <h2 className="text-xl font-semibold text-darkblue">
             Nutrition Plan
           </h2>
