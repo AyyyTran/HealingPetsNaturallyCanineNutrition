@@ -10,6 +10,7 @@ module.exports = {
       white: '#FFFFFF',
       dark: '#48494B',
       grey: '#F5F5F5',
+      darkblue: '#102542',
     },
     fontFamily: {
       sans: ['General Sans', 'sans-serif'],

@@ -7,6 +7,7 @@ import Hero from './Pages/Hero';
 import Certifications from './Pages/Certifications';
 import Services from './Pages/Services';
 import Info from './Pages/Info';
+import Plans from './Pages/Plans';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Certifications></Certifications>
       <Info></Info>
       <Services></Services>
+      <Plans></Plans>
       <Disclaimer></Disclaimer>
       <Footer></Footer>
     </div>
