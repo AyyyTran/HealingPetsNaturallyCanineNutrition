@@ -4,13 +4,15 @@ import Navbar from './Pages/Navbar';
 import About from './Pages/About';
 import Footer from './Pages/Footer';
 import Hero from './Pages/Hero';
+import Certifications from './Pages/Certifications';
 
 function App() {
   return (
     <div className="App">
+      <Navbar></Navbar>
       <Hero></Hero>
       <About></About>
-      <Navbar></Navbar>
+      <Certifications></Certifications>
       <Disclaimer></Disclaimer>
       <Footer></Footer>
     </div>
