@@ -9,6 +9,7 @@ import Services from './Pages/Services';
 import Info from './Pages/Info';
 import Plans from './Pages/Plans';
 import Reviews from './Pages/Reviews';
+import Contact from './Pages/Contact';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Services></Services>
       <Plans></Plans>
       <Reviews></Reviews>
+      <Contact></Contact>
       <Disclaimer></Disclaimer>
       <Footer></Footer>
     </div>
