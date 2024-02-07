@@ -3,14 +3,14 @@ import React from 'react';
 const About = () => {
   return (
     <div className="bg-grey">
-      <h1 className="text-3xl ">About</h1>
+      <h1 className="text-3xl pt-8">About</h1>
       <div className="flex flex-col items-center py-4 lg:flex-row lg:w-3/5 lg:mx-auto lg:text-xl">
         <img
           src="/TwoDog.jpg"
           alt="TwoDogs"
-          className="max-w-72 max-h-96 rounded-xl"
+          className="max-w-72 max-h-96 rounded-xl shadow-2xl"
         />
-        <p className="p-8">
+        <p className="p-4 my-2 ">
           Hi there! I'm Karissa, your dedicated Dog Nutrition Consultant.
           Passionate about promoting optimal health for your furry companions,
           I'm here to guide you on a personalized journey to better nutrition.
@@ -28,21 +28,22 @@ const About = () => {
           needs. Let's make every meal a celebration of good health together!
         </p>
       </div>
+
       <div className="flex flex-col items-center py-4 lg:w-4/5 lg:mx-auto">
-        <h2 className="text-3xl font-medium">My Story</h2>
-        <img
-          src="/VestPugCurious.jpg"
-          alt="CuriousVestPug"
-          className="max-w-72 max-h-96 rounded-xl"
-        />
-        <p className="px-8 py-2 lg:text-l">
+        <h2 className="text-3xl font-medium py-4">My Story</h2>
+        <p className="px-8 py-4 lg:text-l">
           I have always had a love for animals and when I bought my first dog, a
           French Bulldog, I knew they were prone to many health issues as I did
           my research before hand. With all the research I had done before, I
           was still in for a shock with everything my little guy had and no one
           could fully diagnose the issues.
         </p>
-        <p className="px-8 py-2 lg:text-l">
+        <img
+          src="/VestPug.jpg"
+          alt="CuriousVestPug"
+          className="max-w-72 max-h-96 rounded-xl"
+        />
+        <p className="px-8 py-4 lg:text-l">
           He was put on antibiotics over and over again each time causing him
           more issues. Yeast issues, leaky gut, poor skin coat, licking paws,
           warts, hives/rashes, urine crystals and a weakened immune system. I
