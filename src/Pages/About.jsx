@@ -6,8 +6,8 @@ const About = () => {
       <h1 className="text-3xl pt-8">About</h1>
       <div className="flex flex-col items-center py-4 lg:flex-row lg:w-3/5 lg:mx-auto lg:text-xl">
         <img
-          src="/TwoDog.jpg"
-          alt="TwoDogs"
+          src="/VestPugCurious.jpg"
+          alt="CuriousVestPug"
           className="max-w-72 max-h-96 rounded-xl shadow-2xl"
         />
         <p className="p-4 my-2 ">
@@ -18,8 +18,8 @@ const About = () => {
       </div>
       <div className="flex flex-col items-center py-4 lg:flex-row-reverse lg:w-3/5 lg:mx-auto lg:text-xl">
         <img
-          src="/VestPugCurious.jpg"
-          alt="CuriousVestPug"
+          src="/TwoDog.jpg"
+          alt="TwoDogs"
           className="max-w-72 max-h-96 rounded-xl"
         />
         <p className="p-8">
@@ -40,7 +40,7 @@ const About = () => {
         </p>
         <img
           src="/VestPug.jpg"
-          alt="CuriousVestPug"
+          alt="VestPug"
           className="max-w-72 max-h-96 rounded-xl"
         />
         <p className="px-8 py-4 lg:text-l">
