@@ -10,8 +10,8 @@ const Navbar = () => {
   };
 
   return (
-    // add top padding of h-16 and lg:h-20
-    <navbar className="fixed top-0 z-50 flex items-center justify-between px-4 text-lg lg:text-xl w-full h-16 bg-secondary text-white lg:h-20">
+    <navbar className="fixed top-0 z-50 flex items-center justify-between px-4 text-lg lg:text-xl w-full h-24 bg-secondary text-white lg:h-28">
+      {/* <navbar className="fixed top-0 z-50 flex items-center justify-between px-4 text-lg lg:text-xl w-full h-24 bg-secondary text-white lg:h-20"> */}
       <Link
         className="w-1/2 text-3xl font-bold text-white hover:cursor-pointer flex lg:items-center lg:w-40 lg:justify-center "
         to="hero"
@@ -20,7 +20,8 @@ const Navbar = () => {
         offset={-100}
         duration={500}
       >
-        <img src="/logo-transparent.svg" alt="Logo" className="h-16 lg:h-20" />
+        <img src="/logo-transparent.svg" alt="Logo" className="h-24 lg:h-28" />
+        {/* <img src="/logo-transparent.svg" alt="Logo" className="h-16 lg:h-20" /> */}
       </Link>
       <ul className="hidden lg:flex lg:items-center  ">
         <li className="p-4 hover:cursor-pointer hover:-translate-y-0.5 hover:scale-105 hover:bg-white hover:text-primary rounded-2xl ">
@@ -82,7 +83,8 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="hover:cursor-pointer lg:hidden" onClick={handleNav}>
-        <AiOutlineMenu size={40} />
+        <AiOutlineMenu size={60} />
+        {/* <AiOutlineMenu size={40} /> */}
       </div>
       <div
         className={
