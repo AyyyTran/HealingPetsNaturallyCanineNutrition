@@ -16,17 +16,31 @@ const Contact = () => {
   });
 
   const handleInputChange = (e) => {
-    // extracting the name and value property from what the events target is (input)
     const {name, value} = e.target;
-    //setFormData variable to a copy of formData made by spread operator. Which
-    // takes name propertu and creates a new entry into the object with the corresponding value
     setFormData({...formData, [name]: value});
-    console.log('new fd:', formData);
   };
 
-  const handleSubmit = (e) => {
-    // POST
-    // console.log('new fd:', formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Assuming your backend endpoint is /api/send-email
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('Email sent successfully!');
+      } else {
+        console.error('Error sending email:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   return (
@@ -34,7 +48,7 @@ const Contact = () => {
       <div className="text-darkblue text-3xl p-4">Contact Us</div>
       <form
         className="lg:grid lg:grid-cols-2 bg-primary p-2 rounded-xl"
-        onChange={handleSubmit}
+        onSubmit={handleSubmit}
       >
         <div className="text-lg mt-2">Personal Information</div>
         <div className="flex flex-col w-4/5 mx-auto">
@@ -180,30 +194,19 @@ const Contact = () => {
             onChange={handleInputChange}
           ></textarea>
         </div>
-        <div className="w-4/5 mx-auto pt-4">
-          <label htmlFor="foods" className="px-2">
+        <div className="flex flex-col w-4/5 mx-auto">
+          <label htmlFor="raw" className="text-start px-2 py-4">
             Are you open to Raw or Homemade foods?
           </label>
-          <input
-            type="radio"
-            id="yes"
+          <textarea
+            id="raw"
             name="raw"
+            cols="30"
+            rows="10"
             value={formData.raw}
-            checked={formData.raw === 'yes'}
+            className="rounded-xl text-darkblue outline-none p-2"
             onChange={handleInputChange}
           />
-          <label htmlFor="yes" className="pr-2">
-            Yes
-          </label>
-          <input
-            type="radio"
-            id="no"
-            name="raw"
-            value={formData.raw}
-            checked={formData.raw === 'no'}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="no">No</label>
         </div>
         <div className="flex flex-col w-4/5 mx-auto">
           <label htmlFor="qa" className="px-2 py-4">
