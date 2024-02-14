@@ -23,6 +23,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('formData:', formData);
     try {
       // Assuming your backend endpoint is /api/send-email
       const response = await fetch('http://localhost:5000/api/send-email', {

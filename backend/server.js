@@ -2,12 +2,14 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json()); // Middleware to parse JSON in the request body
 app.use(cors()); // Enable CORS for all routes
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 //process.env pass
 const transporter = nodemailer.createTransport({
@@ -19,13 +21,16 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/api/send-email', async (req, res) => {
-  const {formData} = req.body;
+  const formData = req.body;
   try {
+    console.log('Received formData:', formData);
+    console.log('Received body:', req.body);
     const mailOptions = {
       from: 'ayyytran@gmail.com',
       to: 'ayyytran@gmail.com',
       subject: 'Contact Form Details',
-      text: JSON.stringify(formData, null, 2), // Convert form data to JSON string
+      text: `Contact for info ${JSON.stringify(formData, null, 2)}`, // Convert form data to JSON string
+      // text: 'JSON.stringify(formData, null, 2)', // Convert form data to JSON string
     };
 
     await transporter.sendMail(mailOptions);
