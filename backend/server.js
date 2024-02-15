@@ -5,7 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
+const user = process.env.EMAIL_USER;
+const pass = process.env.EMAIL_PASSWORD;
+const clientUser = process.env.CLIENT_EMAIL;
 
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.urlencoded({extended: false}));
@@ -15,8 +18,8 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'ayyytran@gmail.com',
-    pass: 'uzrj olea dkgd uecn',
+    user: user,
+    pass: pass,
   },
 });
 
@@ -26,11 +29,11 @@ app.post('/api/send-email', async (req, res) => {
     console.log('Received formData:', formData);
     console.log('Received body:', req.body);
     const mailOptions = {
-      from: 'ayyytran@gmail.com',
-      to: 'ayyytran@gmail.com',
+      from: user,
+      // to: clientUser,
+      to: user,
       subject: 'Contact Form Details',
-      text: `Contact for info ${JSON.stringify(formData, null, 2)}`, // Convert form data to JSON string
-      // text: 'JSON.stringify(formData, null, 2)', // Convert form data to JSON string
+      text: `Contact form info ${JSON.stringify(formData, null, 2)}`, // Convert form data to JSON string
     };
 
     await transporter.sendMail(mailOptions);

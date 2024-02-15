@@ -11,7 +11,7 @@ const Contact = () => {
     allergies: '',
     weight: '',
     issues: '',
-    raw: '', // for radio button
+    raw: '',
     qa: '',
   });
 
