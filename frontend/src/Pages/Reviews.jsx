@@ -2,7 +2,7 @@ import React from 'react';
 
 const Reviews = () => {
   return (
-    <div>
+    <div className="reviews">
       <h1 className="text-3xl p-4">Reviews</h1>
       <div className="flex flex-col justify-between lg:flex-row">
         <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-1/4 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-105 mx-auto">

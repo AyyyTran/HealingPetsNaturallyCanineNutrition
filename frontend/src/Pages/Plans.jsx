@@ -2,7 +2,7 @@ import React from 'react';
 
 const Plans = () => {
   return (
-    <div className="bg-primary py-4">
+    <div className="bg-primary py-4 plans">
       <h1 className="text-grey text-3xl py-4">Consultation Plans</h1>
 
       <div className="p-4 md:grid md:grid-cols-3">

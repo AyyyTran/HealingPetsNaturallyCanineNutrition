@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <div className=" bg-hero bg-cover bg-center flex flex-col mx-auto w-full pb-4 h-screen">
+    <div className=" hero bg-hero bg-cover bg-center flex flex-col mx-auto w-full pb-4 h-screen">
       <div className="shadow-sm ">
         <div className="w-96 justify-center mx-auto pt-48">
           <h1 className="text-3xl text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_100%)]">
