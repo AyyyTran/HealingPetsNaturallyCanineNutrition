@@ -3,7 +3,7 @@ import React from 'react';
 const Reviews = () => {
   return (
     <div className="reviews">
-      <h1 className="text-3xl p-4">Reviews</h1>
+      <h1 className="text-3xl mt-4 p-8">Reviews</h1>
       <div className="flex flex-col justify-between">
         <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-4/5 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 mx-auto">
           <div className="p-4 pt-8">
