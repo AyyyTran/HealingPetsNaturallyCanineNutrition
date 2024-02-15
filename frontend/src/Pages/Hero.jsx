@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-scroll';
 
 const Hero = () => {
   return (
@@ -16,10 +17,17 @@ const Hero = () => {
           </h2>
         </div>
       </div>
-      <div className="w-96 justify-center mx-auto">
-        <button className="bg-primary text-white text-xl rounded-xl p-4 w-32 mx-auto text-l lg:hover:-translate-y-0.5 lg:hover:scale-105 lg:hover:bg-white lg:hover:text-primary">
+      <div className="w-96 justify-center py-4 mx-auto">
+        <Link
+          to="contact"
+          spy={true}
+          smooth={true}
+          offset={-100}
+          duration={500}
+          className="bg-primary text-white text-xl rounded-xl p-4 w-32 mx-auto text-l lg:hover:-translate-y-0.5 lg:hover:scale-105 lg:hover:bg-white lg:hover:text-primary"
+        >
           Book Now
-        </button>
+        </Link>
       </div>
     </div>
   );
