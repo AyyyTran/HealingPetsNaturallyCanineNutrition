@@ -26,13 +26,16 @@ const Contact = () => {
     console.log('formData:', formData);
     try {
       // Assuming your backend endpoint is /api/send-email
-      const response = await fetch('http://localhost:5000/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/send-email',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         console.log('Email sent successfully!');
