@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+let dotenv = require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -9,36 +10,31 @@ const user = process.env.EMAIL_USER;
 const pass = process.env.EMAIL_PASSWORD;
 const clientUser = process.env.CLIENT_EMAIL;
 
-// Specify allowed origins for CORS
-const allowedOrigins = ['https://www.healingpetsnaturallycaninenutrition.com'];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  })
-);
+// Allow all origins during development
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// process.env pass
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: user,
-    pass: pass,
-  },
+console.log(process.env);
+
+// Default route for the root path
+app.get('/', (req, res) => {
+  res.send('Hello, this is your backend!');
 });
 
 app.post('/api/send-email', async (req, res) => {
+  // process.env pass
+  console.log(pass, user);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: user,
+      pass: pass,
+    },
+  });
   const formData = req.body;
   try {
     console.log('Received formData:', formData);
-    console.log('Received body:', req.body);
     const mailOptions = {
       from: user,
       // to: clientUser,
