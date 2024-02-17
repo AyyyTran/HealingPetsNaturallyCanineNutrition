@@ -16,7 +16,7 @@ const Footer = () => {
           <img
             src="/logo-transparent.svg"
             alt="Logo"
-            className="h-16 lg:h-20"
+            className="h-24 lg:h-28"
           />
         </Link>
         <a href="/" className="text-center justify-center font-medium">
