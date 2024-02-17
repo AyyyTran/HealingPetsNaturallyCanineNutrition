@@ -1,20 +1,31 @@
-// backend/server.js
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const user = process.env.EMAIL_USER;
 const pass = process.env.EMAIL_PASSWORD;
 const clientUser = process.env.CLIENT_EMAIL;
 
-app.use(cors()); // Enable CORS for all routes
+// Specify allowed origins for CORS
+const allowedOrigins = ['https://www.healingpetsnaturallycaninenutrition.com'];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  })
+);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-//process.env pass
+// process.env pass
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
