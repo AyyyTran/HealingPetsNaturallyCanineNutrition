@@ -61,12 +61,13 @@ const Reviews = () => {
           <div className="p-4 pt-8">
             <blockquote>
               <p className="text-lg lg:text-xl text-gray-900">
-                "Hello great company"
+                "Karissa was very knowledgeable and I could tell she had the
+                health of my pet in mind! Very passionate about her work!"
               </p>
             </blockquote>
             <div>
               <p className="text-xl lg:text-2xl font-medium p-4 flex justify-end">
-                Sarak
+                - Lynn
               </p>
             </div>
           </div>
