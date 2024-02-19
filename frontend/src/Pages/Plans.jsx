@@ -40,10 +40,6 @@ const Plans = () => {
               well and to see if anything new should be added or removed
             </li>
             <li>
-              Free bone broth recipe, which is great for joint, immune, gut
-              health, and many more
-            </li>
-            <li>
               Discuss any concerns or questions regarding food, supplements, or
               other health questions
             </li>
@@ -69,6 +65,10 @@ const Plans = () => {
             <li>
               Weekly follow-ups for 12 weeks to make sure everything is going
               well and to see if anything new should be added or removed
+            </li>
+            <li>
+              Free bone broth recipe, which is great for joint, immune, gut
+              health, and many more
             </li>
             <li>
               Discuss any concerns or questions regarding food, supplements, or
