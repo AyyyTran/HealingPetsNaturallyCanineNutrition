@@ -234,7 +234,7 @@ const Contact = () => {
         <input
           type="submit"
           value="Submit"
-          className="font-bold bg-white text-darkblue w-32 p-2 rounded-lg my-2 lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-105"
+          className="font-bold bg-white text-darkblue w-32 p-2 rounded-lg my-8 lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-105"
         />
       </form>
     </div>
