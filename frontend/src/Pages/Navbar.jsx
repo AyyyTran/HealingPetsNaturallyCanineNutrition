@@ -101,10 +101,10 @@ const Navbar = () => {
             duration={500}
             onClick={handleNav}
           >
-            <img src="/logo-transparent.svg" alt="Logo" className="h-16" />{' '}
+            <img src="/logo-transparent.svg" alt="Logo" className="h-20" />{' '}
           </Link>
           <div className="block hover:cursor-pointer  " onClick={handleNav}>
-            <AiOutlineClose size={40} />
+            <AiOutlineClose size={50} />
           </div>
         </div>
         <ul className="uppercase">
