@@ -18,7 +18,7 @@ const Plans = () => {
             <li>Consultation limited to 45 minutes</li>
             <li>Additional time can be purchased</li>
           </ul>
-          <div className="font-bold py-4 text-xl ">$55 CAD</div>
+          <div className="font-bold py-4 text-xl ">$75 CAD</div>
         </div>
 
         <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
@@ -45,7 +45,7 @@ const Plans = () => {
             </li>
             <li>Zoom or telephone consultations</li>
           </ul>
-          <div className="font-bold py-4 text-xl">$75 CAD</div>
+          <div className="font-bold py-4 text-xl">$120 CAD</div>
         </div>
 
         <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
@@ -76,7 +76,7 @@ const Plans = () => {
             </li>
             <li>Zoom or telephone consultations</li>
           </ul>
-          <div className="font-bold py-4 text-xl">$130 CAD</div>
+          <div className="font-bold py-4 text-xl">$160 CAD</div>
         </div>
       </div>
     </div>
