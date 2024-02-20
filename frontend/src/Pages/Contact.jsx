@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import InputMask from 'react-input-mask';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -105,16 +106,17 @@ const Contact = () => {
             <label htmlFor="phone" className="text-start px-2">
               Phone:
             </label>
-            <input
-              type="tel"
+            <InputMask
+              mask="999-999-9999"
+              maskChar="_"
+              alwaysShowMask
               id="phone"
               name="phone"
               className="rounded-xl text-darkblue outline-none p-2"
-              required
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder="123-456-7890"
               value={formData.phone}
               onChange={handleInputChange}
+              required
             />
           </div>
         </div>
