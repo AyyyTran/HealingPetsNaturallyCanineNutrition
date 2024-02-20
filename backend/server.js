@@ -24,7 +24,6 @@ app.get('/', (req, res) => {
 
 app.post('/api/send-email', async (req, res) => {
   // process.env pass
-  console.log(pass, user);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -37,8 +36,7 @@ app.post('/api/send-email', async (req, res) => {
     console.log('Received formData:', formData);
     const mailOptions = {
       from: user,
-      // to: clientUser,
-      to: user,
+      to: clientUser,
       subject: 'Contact Form Details',
       text: `Contact form info ${JSON.stringify(formData, null, 2)}`, // Convert form data to JSON string
     };
