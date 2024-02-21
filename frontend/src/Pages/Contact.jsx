@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +23,10 @@ const Contact = () => {
     setFormData({...formData, [name]: value});
   };
 
+  const notifySuccesful = () => toast.success('Email Sent Successfully! ');
+  const notifyFail = () =>
+    toast.error('Something Went Wrong. Try Again Later! ');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,8 +45,10 @@ const Contact = () => {
       );
 
       if (response.ok) {
+        notifySuccesful();
         console.log('Email sent successfully!');
       } else {
+        notifyFail();
         console.error('Error sending email:', response.statusText);
       }
     } catch (error) {
@@ -240,6 +248,17 @@ const Contact = () => {
           className="font-bold bg-white text-darkblue w-32 p-2 rounded-lg my-8 lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-105"
         />
       </form>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
