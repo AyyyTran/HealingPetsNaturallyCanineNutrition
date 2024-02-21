@@ -213,6 +213,7 @@ const Contact = () => {
               name="raw"
               cols="30"
               rows="10"
+              placeholder="Ex: Yes, we are open to including some raw or homemade foods into the diet."
               value={formData.raw}
               className="rounded-xl text-darkblue outline-none p-2"
               onChange={handleInputChange}
