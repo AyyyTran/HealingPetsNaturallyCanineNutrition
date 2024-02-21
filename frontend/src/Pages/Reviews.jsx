@@ -61,13 +61,27 @@ const Reviews = () => {
           <div className="p-4 pt-8">
             <blockquote>
               <p className="text-lg lg:text-xl text-gray-900">
-                "Karissa was very knowledgeable and I could tell she had the
-                health of my pet in mind! Very passionate about her work!"
+                "Healing Pets Naturally Canine Nutrition has been a life changer
+                for my dog, Sadey. Sadey was diagnosed with kidney disease 2.5
+                years ago. Sadey had not been feeling well and was consuming
+                large amounts of water, we took her to the vet where she was
+                examined and had blood work done. Her kidney levels were very
+                bad and we were told to put her on a Veterinarian Kidney Food as
+                she was diagnosed with kidney disease. We tried the vet food and
+                she was getting worse, she did not want to eat and for a Golden
+                Retriever that is unheard of. I started to do some research and
+                came across Karissa. She has helped us so much with Sadey. I had
+                blood work done again and her kidney levels were starting to
+                improve after a few months. To date Sadey&apos;s kidney levels
+                in her blood are normal, vet said if she didn&apos;t know she
+                had kidney disease they would never know and to keep doing what
+                we are doing. Sadey is healthy, happy, full of energy and loves
+                her food. Thank you so much Karissa for all your hard work that"
               </p>
             </blockquote>
             <div>
               <p className="text-xl lg:text-2xl font-medium p-4 flex justify-end">
-                - Lynn
+                - Brian
               </p>
             </div>
           </div>
