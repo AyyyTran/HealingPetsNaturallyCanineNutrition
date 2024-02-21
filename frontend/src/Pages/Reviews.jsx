@@ -76,7 +76,8 @@ const Reviews = () => {
                 in her blood are normal, vet said if she didn&apos;t know she
                 had kidney disease they would never know and to keep doing what
                 we are doing. Sadey is healthy, happy, full of energy and loves
-                her food. Thank you so much Karissa for all your hard work that"
+                her food. Thank you so much Karissa for all your hard work that
+                you have done for Sadey with her supplements and meal plans.
               </p>
             </blockquote>
             <div>
