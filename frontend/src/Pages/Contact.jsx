@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
-
+const heroku = process.env.HEROKU;
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -27,16 +27,13 @@ const Contact = () => {
     console.log('formData:', formData);
     try {
       // Assuming your backend endpoint is /api/send-email
-      const response = await fetch(
-        'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/send-email',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(heroku, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         console.log('Email sent successfully!');
