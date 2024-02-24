@@ -11,12 +11,12 @@ const Plans = () => {
             Supplement Plan
           </h2>
           <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 justify-center text-start">
-            <li>Going over your dog&apos;s health history</li>
-            <li>Your concerns/questions</li>
+            <li>Dog&apos;s health history</li>
+            <li>Your goals and concerns</li>
             <li>What specific supplements could be beneficial and why</li>
-            <li>A Zoom or telephone consultation</li>
+            <li>A 45 minute consultation via Zoom or telephone</li>
             <li>Consultation limited to 45 minutes</li>
-            <li>Additional time can be purchased</li>
+            <li>Additional time can be purchased $20 - 15 minutes</li>
           </ul>
           <div className="font-bold py-4 text-xl ">$75 CAD</div>
         </div>
@@ -26,24 +26,24 @@ const Plans = () => {
             Nutrition Plan
           </h2>
           <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 text-start">
+            <li>Dog&apos;s health history</li>
+            <li>Current and past food as well as supplements</li>
+            <li>Your goals and concerns</li>
             <li>
-              Going over your dog&apos;s health history, current, and past food
-              as well as supplements
+              Customized food plan according to health status and activity level
+              of your dog
             </li>
             <li>
-              Discuss the benefits of raw and fresh food and what you are open
-              to feeding
+              Discuss the benefits of raw/fresh food and what you are open to
+              feeding
             </li>
-            <li>Customized food and supplement plan with weekly follow-ups</li>
+            <li>Premade fresh food and homemade recipes will be discussed</li>
             <li>
-              Weekly follow-ups for 12 weeks to make sure everything is going
-              well and to see if anything new should be added or removed
+              Weekly follow ups for 6 weeks for further protocol adjustments if
+              needed
             </li>
-            <li>
-              Discuss any concerns or questions regarding food, supplements, or
-              other health questions
-            </li>
-            <li>Zoom or telephone consultations</li>
+            <li>1 hour consultation via Zoom or telephone</li>
+            <li>Additional time can be purchased $20 - 15 minutes</li>
           </ul>
           <div className="font-bold py-4 text-xl">$120 CAD</div>
         </div>
@@ -53,28 +53,24 @@ const Plans = () => {
             Premium Consultation Plan
           </h2>
           <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 text-start">
+            <li>Dog&apos;s health history</li>
+            <li>Current and past food as well as supplements</li>
+            <li>Your goals and concerns</li>
             <li>
-              Going over your dog&apos;s health history, current, and past food
-              as well as supplements
+              Discuss the benefits of raw/fresh food and what you are open to
+              feeding
             </li>
+            <li>Customized food and supplement plan with weekly follow ups</li>
             <li>
-              Discuss the benefits of raw and fresh food and what you are open
-              to feeding
-            </li>
-            <li>Customized food and supplement plan with weekly follow-ups</li>
-            <li>
-              Weekly follow-ups for 12 weeks to make sure everything is going
-              well and to see if anything new should be added or removed
+              Weekly follow ups for 12 weeks for further protocol adjustments if
+              needed
             </li>
             <li>
               Free bone broth recipe, which is great for joint, immune, gut
-              health, and many more
+              health and many more
             </li>
-            <li>
-              Discuss any concerns or questions regarding food, supplements, or
-              other health questions
-            </li>
-            <li>Zoom or telephone consultations</li>
+            <li>90 minute consultation via Zoom or telephone</li>
+            <li>Additional time can be purchased $20 - 15 minutes</li>
           </ul>
           <div className="font-bold py-4 text-xl">$160 CAD</div>
         </div>
