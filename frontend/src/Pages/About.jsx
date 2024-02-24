@@ -23,9 +23,10 @@ const About = () => {
           className="max-w-72 max-h-96 rounded-xl"
         />
         <p className="p-8">
-          With a background in evidence-based canine nutrition, and multiple
-          certifications, I create tailored plans to address your dog's unique
-          needs. Let's make every meal a celebration of good health together!
+          With an education in evidence-based canine nutrition, multiple
+          certifications as well as many years working in the pet industry, I
+          create tailored plans to address your dog&apos;s unique needs.
+          Let&apos;s make every meal a celebration of good health together.
         </p>
       </div>
 
@@ -55,12 +56,12 @@ const About = () => {
         />
         <p className="px-8 py-2 lg:text-l">
           Through extensive research and experimentation, I discovered the
-          profound impact of fresh, wholesome foods and supplements on Rusty’s
-          well-being. Witnessing remarkable improvements in his health within a
-          mere few weeks, I was inspired to delve deeper into canine nutrition.
-          Enrolling in specialized courses, I embarked on a journey to educate
-          myself about the transformative power of proper nutrition in healing
-          and preventing various health issues in pets.
+          profound impact of fresh, wholesome foods and supplements on
+          Rusty&apos;s well-being. Witnessing remarkable improvements in his
+          health within a mere few weeks, I was inspired to delve deeper into
+          canine nutrition. Enrolling in specialized courses, I embarked on a
+          journey to educate myself about the transformative power of proper
+          nutrition in healing and preventing various health issues in pets.
         </p>
         <p className="px-8 py-2 lg:text-l">
           Empowered by this newfound knowledge and personal experience, I became

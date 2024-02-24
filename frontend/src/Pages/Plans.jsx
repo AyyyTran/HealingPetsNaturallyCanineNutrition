@@ -10,7 +10,7 @@ const Plans = () => {
           <h2 className="text-xl font-semibold text-darkblue">
             Supplement Plan
           </h2>
-          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 justify-center">
+          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 justify-center text-start">
             <li>Going over your dog&apos;s health history</li>
             <li>Your concerns/questions</li>
             <li>What specific supplements could be beneficial and why</li>
@@ -25,7 +25,7 @@ const Plans = () => {
           <h2 className="text-xl font-semibold text-darkblue">
             Nutrition Plan
           </h2>
-          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4">
+          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 text-start">
             <li>
               Going over your dog&apos;s health history, current, and past food
               as well as supplements
@@ -52,7 +52,7 @@ const Plans = () => {
           <h2 className="text-xl font-semibold text-darkblue">
             Premium Consultation Plan
           </h2>
-          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4">
+          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 text-start">
             <li>
               Going over your dog&apos;s health history, current, and past food
               as well as supplements
