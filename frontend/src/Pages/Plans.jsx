@@ -15,7 +15,6 @@ const Plans = () => {
             <li>Your goals and concerns</li>
             <li>What specific supplements could be beneficial and why</li>
             <li>A 45 minute consultation via Zoom or telephone</li>
-            <li>Consultation limited to 45 minutes</li>
             <li>Additional time can be purchased $20 - 15 minutes</li>
           </ul>
           <div className="font-bold py-4 text-xl ">$75 CAD</div>
