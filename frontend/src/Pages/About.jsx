@@ -79,7 +79,7 @@ const About = () => {
         <h2 className="text-2xl font-medium p-4">Why Consult With Me?</h2>
         <div className="p-8 rounded-xl bg-primary text-white text-center">
           Are you currently dealing with Allergies, Organ issues/disease,
-          obesity, cancer, or any other health issues? Or are you proactively
+          obesity, or any other health issues? Or are you proactively
           seeking to prevent these problems? You're in the right place. As a
           certified pet nutritionist, I've been helping numerous families heal
           their pet companions.
