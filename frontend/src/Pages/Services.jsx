@@ -12,18 +12,18 @@ const Services = () => {
         <div className="grid grid-cols-2 text-sm md:text-lg p-4 font-semibold">
           <ul>
             <li>Allergies</li>
-            <li>IVDD (Intervertebral Disc Disease)</li>
             <li>Yeast Issues</li>
             <li>Kidney Disease</li>
             <li>Digestive Issues</li>
+            <li>Liver Disease</li>
             <li>Obesity</li>
+            <li>Seizures</li>
           </ul>
           <ul>
-            <li>Seizures</li>
+            <li>IVDD (Intervertebral Disc Disease)</li>
             <li>Urinary/Bladder Crystals/Stones</li>
             <li>Pancreatitis</li>
             <li>Cancer-Support</li>
-            <li>Liver Disease</li>
             <li>Joint Issues</li>
           </ul>
         </div>
