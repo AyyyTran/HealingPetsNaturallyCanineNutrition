@@ -4,20 +4,25 @@ const Plans = () => {
   return (
     <div className="bg-primary py-4 plans">
       <h1 className="text-grey text-3xl py-4">Consultation Plans</h1>
+      <h1 className="text-grey text-xl w-2/3 mx-auto py-4">
+        Note: $30 Deposit is required to reserve your consultation. The
+        remainder to be paid on the first day of consultation. At this time we
+        only accept E -transfers.
+      </h1>
 
       <div className="p-4 md:grid md:grid-cols-3">
-        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
+        <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between md:justify-start shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
           <h2 className="text-xl font-semibold text-darkblue">
             Supplement Plan
           </h2>
-          <ul className="w-2/3 md:w-4/5 mx-auto list-disc py-4 justify-center text-start">
+          <ul className="w-2/3 md:w-4/5 mx-auto list-disc text-start py-4 md:pt-4 md:pb-8">
             <li>Dog&apos;s health history</li>
             <li>Your goals and concerns</li>
             <li>What specific supplements could be beneficial and why</li>
             <li>A 45 minute consultation via Zoom or telephone</li>
             <li>Additional time can be purchased $20 - 15 minutes</li>
           </ul>
-          <div className="font-bold py-4 text-xl ">$75 CAD</div>
+          <div className="font-bold py-4 text-xl md:pt-72">$75 CAD</div>
         </div>
 
         <div className="bg-grey rounded-xl p-4 w-3/4 md:w-4/5 mx-auto my-2 flex flex-col justify-between shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 lg:hover:scale-10">
