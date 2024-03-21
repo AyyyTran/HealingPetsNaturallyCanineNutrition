@@ -87,6 +87,56 @@ const Reviews = () => {
             </div>
           </div>
         </div>
+        <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-4/5 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 mx-auto">
+          <div className="p-4 pt-8">
+            <blockquote>
+              <p className="text-lg lg:text-xl text-gray-900">
+                My husband and I got our French Bulldog puppy, Jellybear, at ten
+                weeks. From the time we brought him home, I noticed he was
+                shaking his head and scratching his ears a lot. We cleaned his
+                ears and they were filthy. He would also lick at his paws and in
+                between his toes and I had nightmares of the same allergies that
+                had plagued our first Frenchie, Bambi, for the entire time we
+                had her (7 years - we adopted her as a retired breeder at
+                three). Bambi really suffered and despite many vet trips and
+                medications, we never got to the bottom of it to give her
+                relief. At the end of her life, her ears were like leather, over
+                half of her body was hairless, and she would have small crusty
+                bumps all over her back, despite feeding her “premium” food and
+                doing everything we could. It was maddening and upsetting to see
+                her in such distress. When Jelly started scratching, I detailed
+                our problem and posted a question about food recommendations on
+                a popular Frenchbulldog forum. Luckily for us, Karissa
+                responded. She was so concerned and attentive to Jelly&apos;s
+                situation. Over the next couple of months, Karissa provided us
+                endless guidance on the most hypoallergenic commercial foods
+                available and homeopathic remedies to quell Jelly&apos;s
+                allergies before they took hold. These interventions worked and
+                he soon stopped itching and licking and we&apos;ve only cleaned
+                his ears a few times over the two years we have had him, and
+                that has just been as a precaution, not because of any symptoms
+                he has presented. I am so grateful that Karissa found us and
+                chose to respond. She spent many hours preparing recommendation
+                and offering tips of things to try. Not only that, but I
+                marveled at how invested she was in Jell&apos;s progress and it
+                was often that she would check back with us and inquire about
+                his health. We owe her debt of gratitude for helping us and
+                saving little Jelly from the myriad of allergies that plagued
+                Bambi and that can be prevalent in the breed. I highly endorse
+                Karissa to anyone seeking nutritional counseling and holistic
+                remedies to help their Frenchies. IMO, they are the best,
+                sweetest, most affectionate breed out there and deserve our
+                best. It is such a relief to see Jellybear happy and
+                comfortable! Thanks, Karissa!!!
+              </p>
+            </blockquote>
+            <div>
+              <p className="text-xl lg:text-2xl font-medium p-4 flex justify-end">
+                - Marianne
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
