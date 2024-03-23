@@ -18,9 +18,39 @@ const Contact = () => {
     qa: '',
   });
 
+  const [errors, setErrors] = useState({
+    email: '',
+    phone: '',
+  });
+
   const handleInputChange = (e) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value});
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {};
+
+    // Validation rules
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+      valid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      valid = false;
+    } else if (!/^\d{3}-\d{3}-\d{4}$/.test(formData.phone)) {
+      newErrors.phone = 'Phone number is invalid';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
   const notifySuccesful = () => toast.success('Email Sent Successfully! ');
@@ -31,28 +61,30 @@ const Contact = () => {
     e.preventDefault();
 
     console.log('formData:', formData);
-    try {
-      // Assuming your backend endpoint is /api/send-email
-      const response = await fetch(
-        'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/send-email',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+    if (validateForm()) {
+      try {
+        // Assuming your backend endpoint is /api/send-email
+        const response = await fetch(
+          'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/send-email',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
-      if (response.ok) {
-        notifySuccesful();
-        console.log('Email sent successfully!');
-      } else {
-        notifyFail();
-        console.error('Error sending email:', response.statusText);
+        if (response.ok) {
+          notifySuccesful();
+          console.log('Email sent successfully!');
+        } else {
+          notifyFail();
+          console.error('Error sending email:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
       }
-    } catch (error) {
-      console.error('Error:', error.message);
     }
   };
 
@@ -109,6 +141,9 @@ const Contact = () => {
               value={formData.email}
               onChange={handleInputChange}
             />
+            {errors.email && (
+              <span className="text-red-500">{errors.email}</span>
+            )}
           </div>
           <div className="flex flex-col w-4/5 mx-auto">
             <label htmlFor="phone" className="text-start px-2">
@@ -126,6 +161,9 @@ const Contact = () => {
               onChange={handleInputChange}
               required
             />
+            {errors.phone && (
+              <span className="text-red-500">{errors.phone}</span>
+            )}
           </div>
         </div>
         <div>
