@@ -60,6 +60,29 @@ const Reviews = () => {
         <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-4/5 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 mx-auto">
           <div className="p-4 pt-8">
             <blockquote>
+              <p className="text-lg text-gray-900">
+                Max, our Coton de Tulear, had been diagnosed with advanced
+                kidney disease back in 2022 by a Vet who had previously missed
+                earlier warning signs. We talked with Karissa about his
+                situation, and she recommended a change in diet, as well as
+                certain supplements. Even though the kidney disease was
+                hereditary and well advanced, these changes helped to give Max a
+                few more months of better quality time with us. Karissa&apos;s
+                love for dogs shows through her caring attitude. Karissa is very
+                knowledgeable in pet care nutrition. We&apos;re very thankful
+                for her, and highly recommend her services.
+              </p>
+            </blockquote>
+            <div>
+              <p className="text-xl lg:text-2xl font-medium p-4 flex justify-end">
+                Sincerely, Ken & Norah
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-4/5 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 mx-auto">
+          <div className="p-4 pt-8">
+            <blockquote>
               <p className="text-lg lg:text-xl text-gray-900">
                 "Healing Pets Naturally Canine Nutrition has been a life changer
                 for my dog, Sadey. Sadey was diagnosed with kidney disease 2.5
