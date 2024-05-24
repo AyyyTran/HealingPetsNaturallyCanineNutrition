@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import InputMask from 'react-input-mask';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import DateTimeValidation from './DateTimeValidation';
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -278,6 +278,15 @@ const Contact = () => {
               value={formData.qa}
               onChange={handleInputChange}
             ></textarea>
+          </div>
+          <div className="flex flex-col w-4/5 mx-auto">
+            <label
+              htmlFor="datetimepicker"
+              className="px-2 py-8 text-3xl font-bold "
+            >
+              Book An Appointment Date & Time!
+            </label>
+            <DateTimeValidation />
           </div>
         </div>
         <input
