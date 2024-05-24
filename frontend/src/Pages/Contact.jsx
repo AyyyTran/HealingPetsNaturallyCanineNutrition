@@ -16,6 +16,7 @@ const Contact = () => {
     issues: '',
     raw: '',
     qa: '',
+    appointmentDateTime: null,
   });
 
   const [errors, setErrors] = useState({
@@ -25,6 +26,11 @@ const Contact = () => {
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
+    setFormData({...formData, [name]: value});
+  };
+
+  const handleDateTimeChange = (name, value) => {
+    // When the date and time change, update the formData with the new value
     setFormData({...formData, [name]: value});
   };
 
@@ -286,7 +292,11 @@ const Contact = () => {
             >
               Book An Appointment Date & Time!
             </label>
-            <DateTimeValidation />
+            <DateTimeValidation
+              name="appointmentDateTime"
+              value={formData.appointmentDateTime}
+              onChange={handleDateTimeChange}
+            />
           </div>
         </div>
         <input

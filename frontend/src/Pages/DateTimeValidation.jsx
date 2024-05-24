@@ -1,30 +1,30 @@
-import React, {useState} from 'react';
-import dayjs from 'dayjs';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
+import dayjs from 'dayjs';
 
-export default function DateTimeValidation() {
-  // Calculate default date and time for tomorrow at 8 AM
-  const defaultDateTime = dayjs().add(1, 'day').startOf('day').add(9, 'hour');
+export default function DateTimeValidation({name, value, onChange}) {
+  // Parse the value to a valid date object using dayjs
+  const parsedValue = value ? dayjs(value) : null;
 
-  const [value, setValue] = useState(defaultDateTime);
+  const handleChange = (newValue) => {
+    // Format the new value to a string before passing it to the parent component's onChange handler
+    onChange(name, newValue ? newValue.format() : null);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
         renderInput={(params) => <TextField {...params} />}
         label="Choose Appointment Date & Time"
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        value={parsedValue}
+        onChange={handleChange}
         minDate={dayjs()}
         minTime={dayjs().startOf('day').add(9, 'hour')}
         maxTime={dayjs().startOf('day').add(17, 'hour')}
-        minutesStep={60} // Disable minutes by setting step to 60 (1 hour)
-        className="rounded-xl bg-white outline-none p-4"
+        minutesStep={60}
         renderTime={(props) => (
           <TextField {...props} select SelectProps={{native: true}}>
             {[...Array(9).keys()].map((hour) => (
