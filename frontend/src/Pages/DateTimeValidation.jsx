@@ -6,11 +6,15 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs';
 
 export default function DateTimeValidation({name, value, onChange}) {
-  // Parse the value to a valid date object using dayjs
   const parsedValue = value ? dayjs(value) : null;
 
   const handleChange = (newValue) => {
     onChange(name, newValue ? newValue.toString() : null);
+  };
+
+  const shouldDisableDate = (date) => {
+    // Disable June 15, 2024 for testing
+    return date.isSame(dayjs('2024-06-15'), 'day');
   };
 
   return (
@@ -30,16 +34,8 @@ export default function DateTimeValidation({name, value, onChange}) {
         minTime={dayjs().startOf('day').add(9, 'hour')}
         maxTime={dayjs().startOf('day').add(17, 'hour')}
         minutesStep={60}
+        shouldDisableDate={shouldDisableDate}
         className="bg-white"
-        renderTime={(props) => (
-          <TextField {...props} select SelectProps={{native: true}}>
-            {[...Array(9).keys()].map((hour) => (
-              <option key={hour} value={hour}>
-                {hour}:00
-              </option>
-            ))}
-          </TextField>
-        )}
       />
     </LocalizationProvider>
   );
