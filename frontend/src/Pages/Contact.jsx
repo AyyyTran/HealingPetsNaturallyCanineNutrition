@@ -175,6 +175,11 @@ const Contact = () => {
         <div>
           <div className="text-lg mt-4">Pet Information</div>
           <div className="flex flex-col w-4/5 mx-auto">
+            Please fill out all the fields with as much detail as possible as I
+            can prepare more accurate advice and to save time for the actual
+            consultation
+          </div>
+          <div className="flex flex-col w-4/5 mx-auto">
             <label htmlFor="pname" className="text-start px-2">
               Pet Name:
             </label>

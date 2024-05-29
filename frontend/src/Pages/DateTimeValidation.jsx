@@ -16,6 +16,12 @@ export default function DateTimeValidation({name, value, onChange}) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <p className="text-xl text-center font-bold">
+        NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.
+      </p>
+      <p className="text-xl text-center font-bold py-4">
+        E-Transfer to info@healingpetsnutrition.com
+      </p>
       <DateTimePicker
         renderInput={(params) => <TextField {...params} />}
         label="Choose Appointment Date & Time"
@@ -25,6 +31,7 @@ export default function DateTimeValidation({name, value, onChange}) {
         minTime={dayjs().startOf('day').add(9, 'hour')}
         maxTime={dayjs().startOf('day').add(17, 'hour')}
         minutesStep={60}
+        className="bg-white"
         renderTime={(props) => (
           <TextField {...props} select SelectProps={{native: true}}>
             {[...Array(9).keys()].map((hour) => (
