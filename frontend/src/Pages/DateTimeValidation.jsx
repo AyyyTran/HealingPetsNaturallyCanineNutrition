@@ -10,8 +10,7 @@ export default function DateTimeValidation({name, value, onChange}) {
   const parsedValue = value ? dayjs(value) : null;
 
   const handleChange = (newValue) => {
-    // Format the new value to a string before passing it to the parent component's onChange handler
-    onChange(name, newValue ? newValue.format() : null);
+    onChange(name, newValue ? newValue.toString() : null);
   };
 
   return (
@@ -20,7 +19,7 @@ export default function DateTimeValidation({name, value, onChange}) {
         NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.
       </p>
       <p className="text-xl text-center font-bold py-4">
-        E-Transfer to info@healingpetsnutrition.com
+        E-Transfer deposit to info@healingpetsnutrition.com
       </p>
       <DateTimePicker
         renderInput={(params) => <TextField {...params} />}

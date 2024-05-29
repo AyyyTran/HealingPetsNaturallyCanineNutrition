@@ -36,7 +36,8 @@ app.post('/api/send-email', async (req, res) => {
     console.log('Received formData:', formData);
     const mailOptions = {
       from: user,
-      to: clientUser,
+      to: user,
+      // to: clientUser,
       subject: 'Contact Form Details',
       text: `Contact form info ${JSON.stringify(formData, null, 2)}`, // Convert form data to JSON string
     };
