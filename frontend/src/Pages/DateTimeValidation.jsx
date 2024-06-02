@@ -5,7 +5,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs';
 
-export default function DateTimeValidation({name, value, onChange}) {
+const DateTimeValidation = ({unavailableDates, name, value, onChange}) => {
   const parsedValue = value ? dayjs(value) : null;
 
   const handleChange = (newValue) => {
@@ -13,8 +13,7 @@ export default function DateTimeValidation({name, value, onChange}) {
   };
 
   const shouldDisableDate = (date) => {
-    // Disable June 15, 2024 for testing
-    return date.isSame(dayjs('2024-06-15'), 'day');
+    return unavailableDates.includes(date.format('YYYY-MM-DD'));
   };
 
   return (
@@ -39,4 +38,6 @@ export default function DateTimeValidation({name, value, onChange}) {
       />
     </LocalizationProvider>
   );
-}
+};
+
+export default DateTimeValidation;
