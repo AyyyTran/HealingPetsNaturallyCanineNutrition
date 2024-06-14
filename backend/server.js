@@ -67,7 +67,6 @@ app.get('/api/unavailable-dates', async (req, res) => {
 // API route to add a new unavailable date
 app.post('/api/unavailable-dates', async (req, res) => {
   try {
-    console.log('HELOOOOOOOOOO');
     const {date} = req.body;
     if (!date) {
       return res.status(400).json({message: 'Date is required'});
