@@ -52,6 +52,9 @@ app.get('/api/unavailable-dates', async (req, res) => {
   try {
     // Attempt to fetch all unavailable dates from the database
     const dates = await UnavailableDate.find({});
+    if (!dates) {
+      res.status(200).json({message: 'No Unavailable Dates Found'});
+    }
 
     // If dates are found, send a JSON response with an array of dates
     res.json(dates.map((date) => date.date));
@@ -64,6 +67,7 @@ app.get('/api/unavailable-dates', async (req, res) => {
 // API route to add a new unavailable date
 app.post('/api/unavailable-dates', async (req, res) => {
   try {
+    console.log('HELOOOOOOOOOO');
     const {date} = req.body;
     if (!date) {
       return res.status(400).json({message: 'Date is required'});
