@@ -63,21 +63,18 @@ app.get('/api/unavailable-dates', async (req, res) => {
 
 // API route to add a new unavailable date
 app.post('/api/unavailable-dates', async (req, res) => {
-  const {date} = req.body;
-  if (!date) {
-    return res.status(400).json({message: 'Date is required'});
-  }
-
   try {
+    const {date} = req.body;
+    if (!date) {
+      return res.status(400).json({message: 'Date is required'});
+    }
+
     const newDate = new UnavailableDate({date});
     await newDate.save();
     res.status(201).json(newDate);
   } catch (error) {
-    if (error.code === 11000) {
-      res.status(400).json({message: 'Date already exists'});
-    } else {
-      res.status(500).json({message: error.message});
-    }
+    console.error('Error handling POST request:', error);
+    res.status(500).json({message: 'Internal server error'});
   }
 });
 
