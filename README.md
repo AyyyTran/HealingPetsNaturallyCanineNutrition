@@ -18,6 +18,15 @@ Folder Structure
 /frontend
 /backend
 
+Steps to Deploy Heroku!
+cd to /backend
+git init
+heroku git:remote -a healing-pets-backend
+git add .
+git commit -m "initial commit"
+git push heroku main
+
+
 Connect With Me!
 LinkedIn: https://www.linkedin.com/in/ayyytran/
 Portfolio: https://andy-tran-portfolio.vercel.app/
