@@ -17,13 +17,18 @@ app.use(bodyParser.json());
 
 require('dotenv').config();
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+    // Exit process on connection failure
+    process.exit(1);
+  }
+};
+
+connectToDatabase();
 
 // Define UnavailableDate schema and model
 const unavailableDateSchema = new mongoose.Schema({
