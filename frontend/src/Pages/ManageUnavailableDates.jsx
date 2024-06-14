@@ -16,23 +16,66 @@ import dayjs from 'dayjs';
 const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleAddDate = () => {
+  const handleAddDate = async () => {
     if (
       selectedDate &&
       !unavailableDates.includes(selectedDate.format('YYYY-MM-DD'))
     ) {
-      setUnavailableDates([
+      const newUnavailableDates = [
         ...unavailableDates,
         selectedDate.format('YYYY-MM-DD'),
-      ]);
-      setSelectedDate(null);
+      ];
+      try {
+        const response = await fetch(
+          'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({dates: newUnavailableDates}),
+          }
+        );
+
+        if (response.ok) {
+          setUnavailableDates(newUnavailableDates);
+          setSelectedDate(null);
+        } else {
+          console.error(
+            'Error updating unavailable dates:',
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
     }
   };
 
-  const handleRemoveDate = (dateToRemove) => {
-    setUnavailableDates(
-      unavailableDates.filter((date) => date !== dateToRemove)
+  const handleRemoveDate = async (dateToRemove) => {
+    const newUnavailableDates = unavailableDates.filter(
+      (date) => date !== dateToRemove
     );
+    try {
+      const response = await fetch(
+        'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({dates: newUnavailableDates}),
+        }
+      );
+
+      if (response.ok) {
+        setUnavailableDates(newUnavailableDates);
+      } else {
+        console.error('Error updating unavailable dates:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   return (

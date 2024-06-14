@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import InputMask from 'react-input-mask';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +27,25 @@ const Contact = () => {
     email: '',
     phone: '',
   });
+
+  useEffect(() => {
+    const fetchUnavailableDates = async () => {
+      try {
+        const response = await fetch(
+          'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates'
+        );
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setUnavailableDates(data);
+      } catch (error) {
+        console.error('Error fetching unavailable dates:', error);
+      }
+    };
+
+    fetchUnavailableDates();
+  }, []);
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
