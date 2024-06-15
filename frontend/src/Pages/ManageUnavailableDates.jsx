@@ -26,11 +26,11 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
       selectedDate &&
       !unavailableDates.includes(selectedDate.utc().format('YYYY-MM-DD'))
     ) {
-      const newUnavailableDates = [
-        ...unavailableDates,
-        selectedDate.utc().format('YYYY-MM-DD'),
-      ];
+      const newUnavailableDate = selectedDate.utc().format('YYYY-MM-DD');
+      const newUnavailableDates = [...unavailableDates, newUnavailableDate];
+
       try {
+        const requestBody = JSON.stringify({dates: newUnavailableDates});
         const response = await fetch(
           'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
           {
@@ -38,48 +38,56 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({dates: newUnavailableDates}),
+            body: requestBody,
           }
         );
+
+        console.log('Request URL:', response.url);
+        console.log('Request Body:', requestBody);
+        console.log('Response Status:', response.status);
+        console.log('Response Status Text:', response.statusText);
 
         if (response.ok) {
           setUnavailableDates(newUnavailableDates);
           setSelectedDate(null);
+          alert('Date added successfully!');
         } else {
-          console.error(
-            'Error updating unavailable dates:',
-            response.statusText
-          );
+          const responseText = await response.text();
+          console.error('Error updating unavailable dates:', responseText);
+          alert('Failed to add date. Please try again.');
         }
       } catch (error) {
         console.error('Error:', error.message);
+        alert('An error occurred. Please try again.');
       }
     }
   };
 
   const handleRemoveDate = async (dateToRemove) => {
-    const newUnavailableDates = unavailableDates.filter(
-      (date) => date !== dateToRemove
-    );
     try {
       const response = await fetch(
-        'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
+        `https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates/${dateToRemove}`,
         {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({dates: newUnavailableDates}),
         }
       );
 
       if (response.ok) {
+        const newUnavailableDates = unavailableDates.filter(
+          (date) => date !== dateToRemove
+        );
         setUnavailableDates(newUnavailableDates);
+        alert('Date removed successfully!');
       } else {
-        console.error('Error updating unavailable dates:', response.statusText);
+        console.error('Error deleting unavailable date:', response.statusText);
+        alert('Failed to remove date. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error.message);
+      alert('An error occurred. Please try again.');
     }
   };
 
