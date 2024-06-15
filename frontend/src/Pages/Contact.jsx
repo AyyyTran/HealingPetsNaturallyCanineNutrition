@@ -4,6 +4,12 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DateTimeValidation from './DateTimeValidation';
 import ManageUnavailableDates from './ManageUnavailableDates';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const Contact = () => {
   const [unavailableDates, setUnavailableDates] = useState([]);
@@ -20,7 +26,7 @@ const Contact = () => {
     issues: '',
     raw: '',
     qa: '',
-    appointmentDateTime: '',
+    appointmentDateTime: null,
   });
 
   const [errors, setErrors] = useState({
@@ -28,6 +34,7 @@ const Contact = () => {
     phone: '',
   });
 
+  // Fetch unavailable dates on component mount
   useEffect(() => {
     const fetchUnavailableDates = async () => {
       try {
@@ -38,6 +45,7 @@ const Contact = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        console.log('Fetched unavailable dates:', data);
         setUnavailableDates(data);
       } catch (error) {
         console.error('Error fetching unavailable dates:', error);
@@ -49,10 +57,12 @@ const Contact = () => {
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
+    console.log(`Input field ${name} changed:`, value);
     setFormData({...formData, [name]: value});
   };
 
   const handleDateTimeChange = (name, value) => {
+    console.log('Appointment date and time selected:', value);
     setFormData({...formData, [name]: value});
   };
 
@@ -321,7 +331,7 @@ const Contact = () => {
             </label>
             <DateTimeValidation
               name="appointmentDateTime"
-              value={formData.appointmentDateTime.toString()}
+              value={formData.appointmentDateTime}
               onChange={handleDateTimeChange}
               unavailableDates={unavailableDates}
             />

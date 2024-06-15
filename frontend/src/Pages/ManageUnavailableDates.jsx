@@ -12,6 +12,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -19,11 +24,11 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
   const handleAddDate = async () => {
     if (
       selectedDate &&
-      !unavailableDates.includes(selectedDate.format('YYYY-MM-DD'))
+      !unavailableDates.includes(selectedDate.utc().format('YYYY-MM-DD'))
     ) {
       const newUnavailableDates = [
         ...unavailableDates,
-        selectedDate.format('YYYY-MM-DD'),
+        selectedDate.utc().format('YYYY-MM-DD'),
       ];
       try {
         const response = await fetch(
@@ -78,6 +83,17 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
     }
   };
 
+  const shouldDisableDate = (date) => {
+    const formattedDate = date.utc().format('YYYY-MM-DD');
+    const isDisabled = unavailableDates.some((unavailableDate) => {
+      return (
+        formattedDate === dayjs(unavailableDate).utc().format('YYYY-MM-DD')
+      );
+    });
+    console.log(`Date ${formattedDate} is disabled:`, isDisabled);
+    return isDisabled;
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div>
@@ -86,7 +102,8 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
           value={selectedDate}
           onChange={(newValue) => setSelectedDate(newValue)}
           renderInput={(params) => <TextField {...params} />}
-          minDate={dayjs()}
+          minDate={dayjs().utc()}
+          shouldDisableDate={shouldDisableDate}
         />
         <Button variant="contained" color="primary" onClick={handleAddDate}>
           Add Date
@@ -96,7 +113,7 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
             <ListItem key={date} className="bg-white">
               <ListItemText
                 className="text-primary"
-                primary={dayjs(date).format('MMMM D, YYYY')}
+                primary={dayjs(date).utc().format('MMMM D, YYYY')}
               />
               <IconButton
                 edge="end"
