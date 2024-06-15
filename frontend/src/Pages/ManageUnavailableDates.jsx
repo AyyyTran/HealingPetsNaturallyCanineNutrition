@@ -22,44 +22,39 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleAddDate = async () => {
-    if (
-      selectedDate &&
-      !unavailableDates.includes(selectedDate.utc().format('YYYY-MM-DD'))
-    ) {
-      const newUnavailableDate = selectedDate.utc().format('YYYY-MM-DD');
-      const newUnavailableDates = [...unavailableDates, newUnavailableDate];
+    if (selectedDate) {
+      const formattedDate = selectedDate.utc().format('YYYY-MM-DD');
+      if (!unavailableDates.includes(formattedDate)) {
+        const newUnavailableDates = [...unavailableDates, formattedDate];
+        try {
+          const response = await fetch(
+            'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({date: formattedDate}), // Send date in the correct format expected by the backend
+            }
+          );
 
-      try {
-        const requestBody = JSON.stringify({dates: newUnavailableDates});
-        const response = await fetch(
-          'https://healing-pets-backend-4102006eeea7.herokuapp.com/api/unavailable-dates',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: requestBody,
+          if (response.ok) {
+            setUnavailableDates(newUnavailableDates);
+            setSelectedDate(null);
+          } else {
+            console.error(
+              'Failed to add unavailable date:',
+              response.statusText
+            );
           }
-        );
-
-        console.log('Request URL:', response.url);
-        console.log('Request Body:', requestBody);
-        console.log('Response Status:', response.status);
-        console.log('Response Status Text:', response.statusText);
-
-        if (response.ok) {
-          setUnavailableDates(newUnavailableDates);
-          setSelectedDate(null);
-          alert('Date added successfully!');
-        } else {
-          const responseText = await response.text();
-          console.error('Error updating unavailable dates:', responseText);
-          alert('Failed to add date. Please try again.');
+        } catch (error) {
+          console.error('Error:', error.message);
         }
-      } catch (error) {
-        console.error('Error:', error.message);
-        alert('An error occurred. Please try again.');
+      } else {
+        console.warn('Date already exists in unavailable dates.');
       }
+    } else {
+      console.warn('No date selected to add.');
     }
   };
 
