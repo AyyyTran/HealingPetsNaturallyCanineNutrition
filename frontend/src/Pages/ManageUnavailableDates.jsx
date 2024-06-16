@@ -20,6 +20,21 @@ dayjs.extend(timezone);
 
 const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handlePasswordSubmit = () => {
+    if (password === 'rusty') {
+      setIsAuthenticated(true);
+      setPassword(''); // Clear the password field
+    } else {
+      alert('Incorrect password');
+    }
+  };
 
   const handleAddDate = async () => {
     if (selectedDate) {
@@ -99,36 +114,69 @@ const ManageUnavailableDates = ({unavailableDates, setUnavailableDates}) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div>
-        <DatePicker
-          label="Add Unavailable Date"
-          value={selectedDate}
-          onChange={(newValue) => setSelectedDate(newValue)}
-          renderInput={(params) => <TextField {...params} />}
-          minDate={dayjs().utc()}
-          shouldDisableDate={shouldDisableDate}
-        />
-        <Button variant="contained" color="primary" onClick={handleAddDate}>
-          Add Date
-        </Button>
-        <List>
-          {unavailableDates.map((date) => (
-            <ListItem key={date} className="bg-white">
-              <ListItemText
-                className="text-primary"
-                primary={dayjs(date).utc().format('MMMM D, YYYY')}
-              />
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={() => handleRemoveDate(date)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItem>
-          ))}
-        </List>
-      </div>
+      {!isAuthenticated && (
+        <div className="mt-16 opacity-50">
+          <TextField
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Enter password"
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handlePasswordSubmit}
+            sx={{
+              width: 50,
+              height: 55,
+              color: 'black',
+              background: '#e7e7e7',
+            }}
+          >
+            Enter
+          </Button>
+        </div>
+      )}
+      {isAuthenticated && (
+        <div>
+          <div className="mt-8 mb-4">
+            <label
+              htmlFor="datetimepicker"
+              className="px-2 py-8 text-3xl font-bold "
+            >
+              Manage Unavailable Dates! For Karissa Only!
+            </label>
+          </div>
+          <DatePicker
+            label="Add Unavailable Date"
+            value={selectedDate}
+            onChange={(newValue) => setSelectedDate(newValue)}
+            renderInput={(params) => <TextField {...params} />}
+            minDate={dayjs().utc()}
+            shouldDisableDate={shouldDisableDate}
+          />
+          <Button variant="contained" color="primary" onClick={handleAddDate}>
+            Add Date
+          </Button>
+          <List>
+            {unavailableDates.map((date) => (
+              <ListItem key={date} className="bg-white">
+                <ListItemText
+                  className="text-primary"
+                  primary={dayjs(date).utc().format('MMMM D, YYYY')}
+                />
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleRemoveDate(date)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      )}
     </LocalizationProvider>
   );
 };

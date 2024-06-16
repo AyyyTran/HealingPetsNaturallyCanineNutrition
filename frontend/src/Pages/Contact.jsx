@@ -338,12 +338,6 @@ const Contact = () => {
           </div>
         </div>
         <div className="flex flex-col w-4/5 mx-auto">
-          <label
-            htmlFor="datetimepicker"
-            className="px-2 py-8 text-3xl font-bold "
-          >
-            Manage Unavailable Dates! For Karissa Only!
-          </label>
           <ManageUnavailableDates
             unavailableDates={unavailableDates}
             setUnavailableDates={setUnavailableDates}
