@@ -4,12 +4,6 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DateTimeValidation from './DateTimeValidation';
 import ManageUnavailableDates from './ManageUnavailableDates';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
 
 const Contact = () => {
   const [unavailableDates, setUnavailableDates] = useState([]);
