@@ -29,10 +29,14 @@ const DateTimeValidation = ({unavailableDates, name, value, onChange}) => {
 
   // Function to disable unavailable dates
   const shouldDisableDate = (date) => {
-    const formattedDate = date.format('YYYY-MM-DD');
-    return unavailableDates.some((unavailableDate) => {
-      return formattedDate === dayjs(unavailableDate).format('YYYY-MM-DD');
+    const formattedDate = date.utc().format('YYYY-MM-DD');
+    const isDisabled = unavailableDates.some((unavailableDate) => {
+      return (
+        formattedDate === dayjs(unavailableDate).utc().format('YYYY-MM-DD')
+      );
     });
+    console.log(`Date ${formattedDate} is disabled:`, isDisabled);
+    return isDisabled;
   };
 
   // Log mount and state changes
