@@ -114,6 +114,30 @@ const Reviews = () => {
           <div className="p-4 pt-8">
             <blockquote>
               <p className="text-lg lg:text-xl text-gray-900">
+                We&apos;ve had the privilege of meeting Karissa over 2 years ago
+                when we brought our new puppy home and were in search of
+                guidance on the healthiest options for optimal nutrition for our
+                dog Daisy. With some initial hesitation, we started her on a
+                complete raw diet nutritionally balanced and haven&apos;t looked
+                back. Since that time she also helped us
+                nutritionally/holistically cure a bad ear yeast infection,
+                provided knowledge and information about supplements for
+                potential environmental allergies, skin and anxiety issues.
+                Karissa has been sincerely exceptional in helping us give the
+                best possible care for our fur baby.
+              </p>
+            </blockquote>
+            <div>
+              <p className="text-xl lg:text-2xl font-medium p-4 flex justify-end">
+                - Shane & Melissa
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-secondary text-grey rounded-lg text-light w-4/5 h-fit lg:w-4/5 items-center my-2 shadow-xl lg:transition lg:ease-in-out lg:hover:-translate-y-0.5 mx-auto">
+          <div className="p-4 pt-8">
+            <blockquote>
+              <p className="text-lg lg:text-xl text-gray-900">
                 My husband and I got our French Bulldog puppy, Jellybear, at ten
                 weeks. From the time we brought him home, I noticed he was
                 shaking his head and scratching his ears a lot. We cleaned his
