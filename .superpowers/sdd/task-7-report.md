@@ -22,3 +22,10 @@ Implemented the `/book` six-step flow. Steps 1–5 collect and validate intake d
 ## Concerns
 
 SMTP delivery and the live Cal.com embed were not manually exercised because no throwaway Gmail app password or live Cal.com environment configuration was supplied. Automated tests cover successful and failed intake response handling.
+
+## Important Review Follow-up
+
+- Replaced the dynamic Cal.com event environment lookup with static `NEXT_PUBLIC_CAL_EVENT_*` references so Next.js includes the configured slugs in the client bundle.
+- Restricted intake success to HTTP status `200`; statuses `201`, `204`, and `500` now remain on the deposit step.
+- `npx vitest run`: 6 files passed, 19 tests passed.
+- `npm run build`: passed; TypeScript and static `/book` generation completed successfully.

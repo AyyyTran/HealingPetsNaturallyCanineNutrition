@@ -60,6 +60,18 @@ describe("submitIntake", () => {
     });
   });
 
+  it.each([201, 204, 500])(
+    "does not advance after a %i response",
+    async (status) => {
+      const fetcher = vi.fn().mockResolvedValue(new Response(null, { status }));
+
+      await expect(submitIntake(form, fetcher)).resolves.toEqual({
+        ok: false,
+        errors: {},
+      });
+    },
+  );
+
   it("keeps field errors from a failed response", async () => {
     const fetcher = vi.fn().mockResolvedValue(
       new Response(

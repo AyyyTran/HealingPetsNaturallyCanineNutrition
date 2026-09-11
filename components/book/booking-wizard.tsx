@@ -71,7 +71,7 @@ export async function submitIntake(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    if (res.ok) return { ok: true, errors: {} };
+    if (res.status === 200) return { ok: true, errors: {} };
 
     const body = (await res.json().catch(() => null)) as {
       errors?: FormErrors;
