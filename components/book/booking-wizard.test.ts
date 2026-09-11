@@ -29,11 +29,20 @@ const form: BookingForm = {
 describe("validateBookingStep", () => {
   it("uses intake validation messages for the current step", () => {
     expect(
-      validateBookingStep({ ...form, email: "bad", phone: "6045551212" }, 2),
+      validateBookingStep({ ...form, email: "bad", phone: "5551212" }, 2),
     ).toEqual({
       email: "Email is invalid",
       phone: "Phone number is invalid",
     });
+  });
+
+  it("accepts common ten-digit phone formats", () => {
+    expect(validateBookingStep({ ...form, phone: "6045551212" }, 2)).toEqual(
+      {},
+    );
+    expect(
+      validateBookingStep({ ...form, phone: "(604) 555-1212" }, 2),
+    ).toEqual({});
   });
 
   it("does not report fields from later steps", () => {
@@ -83,6 +92,20 @@ describe("submitIntake", () => {
     await expect(submitIntake(form, fetcher)).resolves.toEqual({
       ok: false,
       errors: { email: "Email is invalid" },
+    });
+  });
+
+  it("identifies a rate-limited response", async () => {
+    const fetcher = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ ok: false, error: "rate" }), {
+        status: 429,
+      }),
+    );
+
+    await expect(submitIntake(form, fetcher)).resolves.toEqual({
+      ok: false,
+      errors: {},
+      error: "rate",
     });
   });
 });

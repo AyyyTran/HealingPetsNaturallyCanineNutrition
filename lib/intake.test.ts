@@ -40,6 +40,24 @@ describe("parseIntake", () => {
     }
   });
 
+  it("rejects an email containing multiple recipients", () => {
+    const result = parseIntake({
+      ...valid,
+      email: "victim@example.com,attacker@example.net",
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.errors.email).toBe("Email is invalid");
+  });
+
+  it.each(["6045551212", "(604) 555-1212"])(
+    "accepts and formats the phone number %s",
+    (phone) => {
+      const result = parseIntake({ ...valid, phone });
+      expect(result.ok).toBe(true);
+      if (result.ok) expect(result.data.phone).toBe("604-555-1212");
+    },
+  );
+
   it("rejects a missing required health field", () => {
     const result = parseIntake({ ...valid, allergies: "  " });
     expect(result.ok).toBe(false);

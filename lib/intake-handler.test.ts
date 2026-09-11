@@ -53,6 +53,38 @@ describe("handleIntakePost", () => {
     );
     expect(res.status).toBe(200);
     expect(sendMail).toHaveBeenCalledTimes(2);
+    expect(sendMail).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        to: { address: payload.email, name: payload.name },
+      }),
+    );
+  });
+
+  it("does not rate-limit invalid intake", async () => {
+    const allow = vi.fn(() => true);
+    const res = await handleIntakePost(
+      new Request("http://local/api/intake", {
+        method: "POST",
+        body: JSON.stringify({ ...payload, email: "bad" }),
+      }),
+      allow,
+    );
+    expect(res.status).toBe(400);
+    expect(allow).not.toHaveBeenCalled();
+  });
+
+  it("returns the rate error when a valid intake is limited", async () => {
+    const res = await handleIntakePost(
+      new Request("http://local/api/intake", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }),
+      () => false,
+    );
+    expect(res.status).toBe(429);
+    await expect(res.json()).resolves.toEqual({ ok: false, error: "rate" });
+    expect(sendMail).not.toHaveBeenCalled();
   });
 
   it("returns 500 and does not claim success if mail fails", async () => {

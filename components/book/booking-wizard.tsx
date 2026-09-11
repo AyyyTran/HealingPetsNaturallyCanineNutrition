@@ -64,7 +64,7 @@ export function validateBookingStep(
 export async function submitIntake(
   form: BookingForm,
   fetcher: typeof fetch = fetch,
-): Promise<{ ok: boolean; errors: FormErrors }> {
+): Promise<{ ok: boolean; errors: FormErrors; error?: "rate" }> {
   try {
     const res = await fetcher("/api/intake", {
       method: "POST",
@@ -72,6 +72,9 @@ export async function submitIntake(
       body: JSON.stringify(form),
     });
     if (res.status === 200) return { ok: true, errors: {} };
+    if (res.status === 429) {
+      return { ok: false, errors: {}, error: "rate" };
+    }
 
     const body = (await res.json().catch(() => null)) as {
       errors?: FormErrors;
@@ -122,7 +125,11 @@ export function BookingWizard() {
     setSending(false);
     if (!result.ok) {
       setErrors(result.errors);
-      setSubmitError("Couldn't send, try again.");
+      setSubmitError(
+        result.error === "rate"
+          ? "Too many attempts. Please try again later."
+          : "Couldn't send, try again.",
+      );
       return;
     }
     setStep(6);
@@ -345,8 +352,8 @@ export function BookingWizard() {
             )}
             {Object.keys(errors).length > 0 && (
               <ul className="mt-3 text-sm text-red-700">
-                {Object.values(errors).map((error) => (
-                  <li key={error}>{error}</li>
+                {Object.entries(errors).map(([field, error]) => (
+                  <li key={field}>{error}</li>
                 ))}
               </ul>
             )}

@@ -3,7 +3,10 @@ import { parseIntake } from "./intake";
 import { getTransport } from "./mailer";
 import { allowIntake } from "./rate-limit";
 
-export async function handleIntakePost(req: Request): Promise<Response> {
+export async function handleIntakePost(
+  req: Request,
+  allow: typeof allowIntake = allowIntake,
+): Promise<Response> {
   let body: unknown;
   try {
     body = await req.json();
@@ -14,18 +17,18 @@ export async function handleIntakePost(req: Request): Promise<Response> {
     );
   }
 
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (!allowIntake(ip)) {
-    return Response.json({ ok: false, error: "rate" }, { status: 429 });
-  }
-
   const parsed = parseIntake(body);
   if (!parsed.ok) {
     return Response.json(
       { ok: false, errors: parsed.errors },
       { status: 400 },
     );
+  }
+
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (!allow(ip)) {
+    return Response.json({ ok: false, error: "rate" }, { status: 429 });
   }
 
   const { subject, text, clientSubject, clientText } = formatIntakeEmail(
@@ -42,7 +45,7 @@ export async function handleIntakePost(req: Request): Promise<Response> {
     });
     await transport.sendMail({
       from: process.env.EMAIL_USER,
-      to: parsed.data.email,
+      to: { address: parsed.data.email, name: parsed.data.name },
       subject: clientSubject,
       text: clientText,
     });

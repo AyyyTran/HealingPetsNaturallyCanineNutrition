@@ -1,6 +1,6 @@
 import { getPlan, type PlanId } from "./plans";
 
-const EMAIL_RE = /\S+@\S+\.\S+/;
+const EMAIL_RE = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/;
 const PHONE_RE = /^\d{3}-\d{3}-\d{4}$/;
 
 export type Intake = {
@@ -40,7 +40,12 @@ export function parseIntake(
   const name = str(input.name);
   const address = str(input.address);
   const email = str(input.email);
-  const phone = str(input.phone);
+  const phoneInput = str(input.phone);
+  const phoneDigits = phoneInput.replace(/\D/g, "");
+  const phone =
+    phoneDigits.length === 10
+      ? `${phoneDigits.slice(0, 3)}-${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`
+      : phoneInput;
   const petName = str(input.petName);
   const breed = str(input.breed);
   const allergies = str(input.allergies);

@@ -38,6 +38,12 @@ empty Root Directory), **not** `frontend`. The production domain is already
 attached. Deploy through the Git integration, or run `vercel --prod` while
 authenticated to the correct Vercel account.
 
+Set all `NEXT_PUBLIC_CAL_*` variables in Vercel before starting the production
+build because Next.js bakes public environment values into the client bundle.
+Changing them later requires a new production deployment. Missing values do
+not fail the build; local development and unconfigured deployments show
+fallback scheduling copy.
+
 Andy does not pay the domain registrar. Karissa/the business owns the domain
 and pays whatever the registrar charges to renew it. Andy's only old hosting
 cost was Heroku (~$7/month); that goes away. Vercel Hobby is $0.
