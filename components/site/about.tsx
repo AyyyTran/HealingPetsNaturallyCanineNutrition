@@ -13,8 +13,8 @@ export function About() {
         <Image
           src="/VestPugCurious.jpg"
           alt="CuriousVestPug"
-          width={288}
-          height={384}
+          width={552}
+          height={640}
           className="max-h-96 w-auto rounded-xl shadow-2xl"
         />
         <div className="max-w-3xl space-y-4">
@@ -46,8 +46,8 @@ export function About() {
         <Image
           src="/TwoDog.jpg"
           alt="TwoDogs"
-          width={288}
-          height={384}
+          width={640}
+          height={480}
           className="max-h-96 w-auto rounded-xl"
         />
         <p className={`${paragraphClass} max-w-3xl`}>
@@ -81,8 +81,8 @@ export function About() {
         <Image
           src="/VestPug.jpg"
           alt="VestPug"
-          width={288}
-          height={384}
+          width={418}
+          height={640}
           className="my-4 max-h-96 w-auto rounded-xl"
         />
         <p className={paragraphClass}>
