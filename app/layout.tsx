@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Healing Pets Naturally Canine Nutrition",
   description:
     "Personalized canine nutrition consultations with Karissa — evidence-based diet plans for healthier dogs.",
+  icons: { icon: "/logo.svg" },
 };
 
 export default function RootLayout({
