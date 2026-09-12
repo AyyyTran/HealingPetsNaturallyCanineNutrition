@@ -1,17 +1,12 @@
-import { getPlan } from "./plans";
 import type { Intake } from "./intake";
 
 export function formatIntakeEmail(intake: Intake) {
-  const plan = getPlan(intake.planId);
-  const planLabel = plan
-    ? `${plan.name} ($${plan.priceCad} CAD, ${plan.durationMin} min)`
-    : intake.planId;
-
-  const subject = `New consultation intake: ${plan?.name ?? intake.planId} — ${intake.petName}`;
+  const subject = "Contact Form Details";
   const text = [
-    "New Healing Pets Naturally intake",
+    "Contact form info",
     "",
-    `Plan: ${planLabel}`,
+    `Requested appointment: ${intake.appointmentLabel}`,
+    "",
     `Name: ${intake.name}`,
     `Address: ${intake.address}`,
     `Email: ${intake.email}`,
@@ -29,24 +24,14 @@ export function formatIntakeEmail(intake: Intake) {
     intake.issues,
     "",
     "Open to raw or homemade:",
-    intake.raw,
+    intake.raw || "(none)",
     "",
     "Questions:",
     intake.qa || "(none)",
+    "",
+    "NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.",
+    "E-Transfer deposit to info@healingpetsnutrition.com",
   ].join("\n");
 
-  const clientSubject = "We received your consultation request";
-  const clientText = [
-    `Hi ${intake.name},`,
-    "",
-    `Thank you for requesting the ${plan?.name ?? "consultation"} for ${intake.petName}.`,
-    "",
-    "Next step: pick a time on the calendar. To reserve the appointment, send a $30 e-transfer deposit to info@healingpetsnutrition.com. The remainder is paid on the first day of consultation. We only accept e-transfers.",
-    "",
-    "Karissa will also receive the health details you submitted.",
-    "",
-    "Healing Pets Naturally Canine Nutrition",
-  ].join("\n");
-
-  return { subject, text, clientSubject, clientText };
+  return { subject, text };
 }

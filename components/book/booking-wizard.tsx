@@ -1,17 +1,33 @@
 "use client";
 
-import { useState, type ChangeEvent } from "react";
-import { parseIntake, type Intake } from "@/lib/intake";
-import { getPlan, PLANS, type PlanId } from "@/lib/plans";
-import { CalEmbed } from "./cal-embed";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  APPOINTMENT_HOURS,
+  minAppointmentDate,
+} from "@/lib/appointment";
+import { parseIntake } from "@/lib/intake";
+import { formatPhoneInput } from "@/lib/phone";
 
-export type BookingForm = Intake & { website: string };
+export type BookingForm = {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  petName: string;
+  breed: string;
+  allergies: string;
+  weight: string;
+  issues: string;
+  raw: string;
+  qa: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  website: string;
+};
 
-type BookingStep = 1 | 2 | 3 | 4 | 5 | 6;
 type FormErrors = Record<string, string>;
 
 const INITIAL_FORM: BookingForm = {
-  planId: "" as PlanId,
   name: "",
   address: "",
   email: "",
@@ -23,43 +39,13 @@ const INITIAL_FORM: BookingForm = {
   issues: "",
   raw: "",
   qa: "",
+  appointmentDate: "",
+  appointmentTime: "",
   website: "",
 };
 
-const STEP_LABELS = ["Plan", "You", "Dog", "Health", "Deposit", "Time"];
-const STEP_FIELDS: Record<number, (keyof BookingForm)[]> = {
-  1: ["planId"],
-  2: ["name", "address", "email", "phone"],
-  3: ["petName", "breed"],
-  4: ["allergies", "weight", "issues", "raw"],
-  5: [
-    "planId",
-    "name",
-    "address",
-    "email",
-    "phone",
-    "petName",
-    "breed",
-    "allergies",
-    "weight",
-    "issues",
-    "raw",
-  ],
-};
-
-export function validateBookingStep(
-  form: BookingForm,
-  step: number,
-): FormErrors {
-  const parsed = parseIntake(form);
-  if (parsed.ok) return {};
-  const fields = STEP_FIELDS[step] ?? [];
-  return Object.fromEntries(
-    Object.entries(parsed.errors).filter(([field]) =>
-      fields.includes(field as keyof BookingForm),
-    ),
-  );
-}
+const fieldClass =
+  "mt-2 w-full rounded-lg border border-darkblue/25 bg-white px-4 py-3 text-darkblue outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20";
 
 export async function submitIntake(
   form: BookingForm,
@@ -85,20 +71,37 @@ export async function submitIntake(
   }
 }
 
-const fieldClass =
-  "mt-2 w-full rounded-lg border border-darkblue/25 bg-white px-4 py-3 outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20";
+function hourLabel(time: string) {
+  const hour = Number(time.slice(0, 2));
+  const meridiem = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:00 ${meridiem}`;
+}
 
 export function BookingWizard() {
-  const [step, setStep] = useState<BookingStep>(1);
   const [form, setForm] = useState<BookingForm>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [sent, setSent] = useState(false);
+  const [minDate, setMinDate] = useState("");
+
+  useEffect(() => {
+    setMinDate(minAppointmentDate());
+  }, []);
 
   const update =
     (field: keyof BookingForm) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setForm((current) => ({ ...current, [field]: event.target.value }));
+    (
+      event: ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
+      const value =
+        field === "phone"
+          ? formatPhoneInput(event.target.value)
+          : event.target.value;
+      setForm((current) => ({ ...current, [field]: value }));
       setErrors((current) => {
         const next = { ...current };
         delete next[field];
@@ -106,21 +109,17 @@ export function BookingWizard() {
       });
     };
 
-  const continueFrom = (currentStep: BookingStep) => {
-    const nextErrors = validateBookingStep(form, currentStep);
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length === 0 && currentStep < 5) {
-      setStep((currentStep + 1) as BookingStep);
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const parsed = parseIntake(form);
+    if (!parsed.ok) {
+      setErrors(parsed.errors);
+      setSubmitError("");
+      return;
     }
-  };
-
-  const sendIntake = async () => {
-    const nextErrors = validateBookingStep(form, 5);
-    setErrors(nextErrors);
-    setSubmitError("");
-    if (Object.keys(nextErrors).length > 0) return;
 
     setSending(true);
+    setSubmitError("");
     const result = await submitIntake(form);
     setSending(false);
     if (!result.ok) {
@@ -128,315 +127,217 @@ export function BookingWizard() {
       setSubmitError(
         result.error === "rate"
           ? "Too many attempts. Please try again later."
-          : "Couldn't send, try again.",
+          : "Something Went Wrong. Try Again Later!",
       );
       return;
     }
-    setStep(6);
+    setSent(true);
   };
 
-  const plan = getPlan(form.planId);
+  if (sent) {
+    return (
+      <main className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+        <section className="rounded-2xl bg-white p-6 text-center shadow-sm sm:p-10">
+          <h1 className="text-3xl font-semibold">Email Sent Successfully!</h1>
+        </section>
+      </main>
+    );
+  }
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
-      <div className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
-          Step {step} of 6
-        </p>
-        <ol className="mt-4 grid grid-cols-3 gap-2 text-sm sm:grid-cols-6">
-          {STEP_LABELS.map((label, index) => (
-            <li
-              className={
-                index + 1 === step
-                  ? "rounded-full bg-darkblue px-3 py-2 text-center text-white"
-                  : "rounded-full bg-grey px-3 py-2 text-center text-darkblue/65"
-              }
-              key={label}
-            >
-              {label}
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <section className="rounded-2xl bg-white p-6 shadow-sm sm:p-10">
-        {step === 1 && (
-          <>
-            <h1 className="text-3xl font-semibold">Choose your plan</h1>
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {PLANS.map((option) => (
-                <button
-                  aria-pressed={form.planId === option.id}
-                  className={`rounded-xl border p-6 text-left transition ${
-                    form.planId === option.id
-                      ? "border-secondary bg-accent/15 ring-2 ring-secondary"
-                      : "border-darkblue/15 hover:border-secondary"
-                  }`}
-                  key={option.id}
-                  onClick={() => {
-                    setForm((current) => ({
-                      ...current,
-                      planId: option.id,
-                    }));
-                    setErrors({});
-                  }}
-                  type="button"
-                >
-                  <h2 className="text-xl font-semibold">{option.name}</h2>
-                  <p className="mt-2 text-lg font-semibold">
-                    ${option.priceCad} CAD
-                  </p>
-                  <p className="text-sm text-darkblue/70">
-                    {option.durationMin} minutes
-                  </p>
-                  <ul className="mt-4 space-y-2 text-sm">
-                    {option.bullets.map((bullet) => (
-                      <li key={bullet}>• {bullet}</li>
-                    ))}
-                  </ul>
-                </button>
-              ))}
-            </div>
-            <div className="mt-8 flex justify-end">
-              <button
-                className="rounded-full bg-secondary px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-45"
-                disabled={!form.planId}
-                onClick={() => continueFrom(1)}
-                type="button"
-              >
-                Continue
-              </button>
-            </div>
-          </>
-        )}
-
-        {step === 2 && (
-          <StepPanel
-            title="Tell us about you"
-            onBack={() => setStep(1)}
-            onContinue={() => continueFrom(2)}
-          >
-            <Field label="Name" error={errors.name}>
-              <input
-                className={fieldClass}
-                value={form.name}
-                onChange={update("name")}
-              />
-            </Field>
-            <Field label="Address" error={errors.address}>
-              <input
-                className={fieldClass}
-                value={form.address}
-                onChange={update("address")}
-              />
-            </Field>
-            <Field label="Email" error={errors.email}>
-              <input
-                className={fieldClass}
-                type="email"
-                value={form.email}
-                onChange={update("email")}
-              />
-            </Field>
-            <Field label="Phone" error={errors.phone} helper="000-000-0000">
-              <input
-                className={fieldClass}
-                inputMode="tel"
-                value={form.phone}
-                onChange={update("phone")}
-              />
-            </Field>
-          </StepPanel>
-        )}
-
-        {step === 3 && (
-          <StepPanel
-            title="Tell us about your dog"
-            onBack={() => setStep(2)}
-            onContinue={() => continueFrom(3)}
-          >
-            <Field label="Pet name" error={errors.petName}>
-              <input
-                className={fieldClass}
-                value={form.petName}
-                onChange={update("petName")}
-              />
-            </Field>
-            <Field label="Breed" error={errors.breed}>
-              <input
-                className={fieldClass}
-                value={form.breed}
-                onChange={update("breed")}
-              />
-            </Field>
-          </StepPanel>
-        )}
-
-        {step === 4 && (
-          <StepPanel
-            title="Health details"
-            intro="Please fill out all the fields with as much detail as possible as I can prepare more accurate advice and to save time for the actual consultation"
-            onBack={() => setStep(3)}
-            onContinue={() => continueFrom(4)}
-          >
-            <Field
-              label="Please list/describe any allergies/intolerance's your pet has. Food and supplements it has taken and is currently taking."
-              error={errors.allergies}
-            >
-              <textarea
-                className={fieldClass}
-                rows={4}
-                value={form.allergies}
-                onChange={update("allergies")}
-              />
-            </Field>
-            <Field
-              label="Please describe how active your pet is. What is the current weight and ideal weight of your pet. How much food do you feed it?"
-              error={errors.weight}
-            >
-              <textarea
-                className={fieldClass}
-                rows={4}
-                value={form.weight}
-                onChange={update("weight")}
-              />
-            </Field>
-            <Field
-              label="Please describe all previous or current health issues of your pet."
-              error={errors.issues}
-            >
-              <textarea
-                className={fieldClass}
-                rows={4}
-                value={form.issues}
-                onChange={update("issues")}
-              />
-            </Field>
-            <Field
-              label="Are you open to Raw or Homemade foods?"
-              error={errors.raw}
-            >
-              <textarea
-                className={fieldClass}
-                rows={3}
-                value={form.raw}
-                onChange={update("raw")}
-              />
-            </Field>
-            <Field label="Any Questions or Concerns?" error={errors.qa}>
-              <textarea
-                className={fieldClass}
-                rows={3}
-                value={form.qa}
-                onChange={update("qa")}
-              />
-            </Field>
-          </StepPanel>
-        )}
-
-        {step === 5 && (
-          <>
-            <h1 className="text-3xl font-semibold">Deposit</h1>
-            <div className="mt-6 rounded-xl bg-accent/20 p-6">
-              <p className="font-bold">
-                NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.
-              </p>
-              <p className="mt-3">
-                E-Transfer deposit to info@healingpetsnutrition.com
-              </p>
-            </div>
-            {submitError && (
-              <p className="mt-5 text-sm font-semibold text-red-700" role="alert">
-                {submitError}
-              </p>
-            )}
-            {Object.keys(errors).length > 0 && (
-              <ul className="mt-3 text-sm text-red-700">
-                {Object.entries(errors).map(([field, error]) => (
-                  <li key={field}>{error}</li>
-                ))}
-              </ul>
-            )}
+    <main className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+      <section className="rounded-2xl bg-primary p-6 text-white shadow-sm sm:p-10">
+        <h1 className="text-3xl font-semibold text-darkblue">Contact Us</h1>
+        <form className="mt-8 grid gap-6" onSubmit={onSubmit}>
+          <p className="text-lg">Personal Information</p>
+          <Field label="Name:" error={errors.name}>
             <input
-              aria-hidden="true"
-              autoComplete="off"
-              className="absolute -left-[9999px] h-px w-px"
-              name="website"
-              tabIndex={-1}
-              value={form.website}
-              onChange={update("website")}
+              autoComplete="name"
+              className={fieldClass}
+              placeholder="John Doe"
+              required
+              value={form.name}
+              onChange={update("name")}
             />
-            <div className="mt-8 flex items-center justify-between gap-4">
-              <button
-                className="rounded-full border border-secondary px-6 py-3 font-semibold text-secondary"
-                onClick={() => setStep(4)}
-                type="button"
-              >
-                Back
-              </button>
-              <button
-                className="rounded-full bg-secondary px-6 py-3 font-semibold text-white disabled:opacity-50"
-                disabled={sending}
-                onClick={sendIntake}
-                type="button"
-              >
-                {sending ? "Sending…" : "Continue to pick a time"}
-              </button>
-            </div>
-          </>
-        )}
+          </Field>
+          <Field label="Address:" error={errors.address}>
+            <input
+              autoComplete="street-address"
+              className={fieldClass}
+              placeholder="123 Main St, City"
+              required
+              value={form.address}
+              onChange={update("address")}
+            />
+          </Field>
+          <Field label="Email:" error={errors.email}>
+            <input
+              autoComplete="email"
+              className={fieldClass}
+              placeholder="john.doe@example.com"
+              required
+              type="email"
+              value={form.email}
+              onChange={update("email")}
+            />
+          </Field>
+          <Field label="Phone:" error={errors.phone}>
+            <input
+              autoComplete="tel"
+              className={fieldClass}
+              inputMode="numeric"
+              maxLength={12}
+              placeholder="123-456-7890"
+              required
+              type="tel"
+              value={form.phone}
+              onChange={update("phone")}
+            />
+          </Field>
 
-        {step === 6 && plan && (
-          <>
-            <h1 className="mb-8 text-3xl font-semibold">Pick a time</h1>
-            <CalEmbed
-              planId={plan.id}
-              name={form.name}
-              email={form.email}
-              notes={`Plan: ${plan.name}. Pet: ${form.petName} (${form.breed}). Intake emailed to Karissa.`}
+          <p className="mt-4 text-lg">Pet Information</p>
+          <p>
+            Please fill out all the fields with as much detail as possible as I
+            can prepare more accurate advice and to save time for the actual
+            consultation
+          </p>
+          <Field label="Pet Name:" error={errors.petName}>
+            <input
+              className={fieldClass}
+              placeholder="Rusty"
+              required
+              value={form.petName}
+              onChange={update("petName")}
             />
-          </>
-        )}
+          </Field>
+          <Field label="Pet Breed:" error={errors.breed}>
+            <input
+              className={fieldClass}
+              placeholder="Labrador"
+              required
+              value={form.breed}
+              onChange={update("breed")}
+            />
+          </Field>
+          <Field
+            label="Please list/describe any allergies/intolerance's your pet has. Food and supplements it has taken and is currently taking."
+            error={errors.allergies}
+          >
+            <textarea
+              className={fieldClass}
+              placeholder="Ex: Allergic to fish, chicken and has troubles digesting seeds. Currently being fed dog food and no supplements."
+              required
+              rows={8}
+              value={form.allergies}
+              onChange={update("allergies")}
+            />
+          </Field>
+          <Field
+            label="Please describe how active your pet is. What is the current weight and ideal weight of your pet. How much food do you feed it?"
+            error={errors.weight}
+          >
+            <textarea
+              className={fieldClass}
+              placeholder="Ex: Rusty is not very active. Only an hour of outside time daily. Currently weighs 150lbs but want him to be a healthier weight. Currently fed 3 meals a day plus dog treats and dental stick."
+              required
+              rows={8}
+              value={form.weight}
+              onChange={update("weight")}
+            />
+          </Field>
+          <Field
+            label="Please describe all previous or current health issues of your pet."
+            error={errors.issues}
+          >
+            <textarea
+              className={fieldClass}
+              placeholder="Ex: Rusty used to have obesity and now is struggling with arthritis."
+              required
+              rows={8}
+              value={form.issues}
+              onChange={update("issues")}
+            />
+          </Field>
+          <Field
+            label="Are you open to Raw or Homemade foods?"
+            error={errors.raw}
+          >
+            <textarea
+              className={fieldClass}
+              placeholder="Ex: Yes, we are open to including some raw or homemade foods into the diet."
+              rows={6}
+              value={form.raw}
+              onChange={update("raw")}
+            />
+          </Field>
+          <Field label="Any Questions or Concerns?" error={errors.qa}>
+            <textarea
+              className={fieldClass}
+              rows={6}
+              value={form.qa}
+              onChange={update("qa")}
+            />
+          </Field>
+
+          <p className="pt-4 text-center text-3xl font-bold">
+            Book An Appointment Date & Time!
+          </p>
+          <p className="text-center text-xl font-bold">
+            NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.
+          </p>
+          <p className="text-center text-xl font-bold">
+            E-Transfer deposit to info@healingpetsnutrition.com
+          </p>
+          <Field label="Appointment date" error={errors.appointmentDate}>
+            <input
+              className={fieldClass}
+              min={minDate}
+              required
+              type="date"
+              value={form.appointmentDate}
+              onChange={update("appointmentDate")}
+            />
+          </Field>
+          <Field label="Appointment time (Pacific)">
+            <select
+              className={fieldClass}
+              required
+              value={form.appointmentTime}
+              onChange={update("appointmentTime")}
+            >
+              <option value="">Choose a time</option>
+              {APPOINTMENT_HOURS.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hourLabel(hour)}
+                </option>
+              ))}
+            </select>
+          </Field>
+
+          {submitError && (
+            <p className="rounded-lg bg-white p-3 font-semibold text-red-700" role="alert">
+              {submitError}
+            </p>
+          )}
+          <input
+            aria-hidden="true"
+            autoComplete="off"
+            className="absolute -left-[9999px] h-px w-px"
+            name="website"
+            tabIndex={-1}
+            value={form.website}
+            onChange={update("website")}
+          />
+          <button
+            className="mx-auto my-4 w-32 rounded-lg bg-white p-2 font-bold text-darkblue disabled:opacity-50"
+            disabled={sending}
+            type="submit"
+          >
+            {sending ? "Sending…" : "Submit"}
+          </button>
+        </form>
       </section>
     </main>
-  );
-}
-
-function StepPanel({
-  title,
-  intro,
-  children,
-  onBack,
-  onContinue,
-}: {
-  title: string;
-  intro?: string;
-  children: React.ReactNode;
-  onBack: () => void;
-  onContinue: () => void;
-}) {
-  return (
-    <>
-      <h1 className="text-3xl font-semibold">{title}</h1>
-      {intro && <p className="mt-4 text-darkblue/75">{intro}</p>}
-      <div className="mt-8 grid gap-6">{children}</div>
-      <div className="mt-8 flex items-center justify-between gap-4">
-        <button
-          className="rounded-full border border-secondary px-6 py-3 font-semibold text-secondary"
-          onClick={onBack}
-          type="button"
-        >
-          Back
-        </button>
-        <button
-          className="rounded-full bg-secondary px-6 py-3 font-semibold text-white"
-          onClick={onContinue}
-          type="button"
-        >
-          Continue
-        </button>
-      </div>
-    </>
   );
 }
 
@@ -452,12 +353,14 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <label className="block font-medium">
+    <label className="block text-start">
       {label}
       {children}
-      {helper && <span className="mt-1 block text-sm text-darkblue/60">{helper}</span>}
+      {helper && (
+        <span className="mt-1 block text-sm text-white/80">{helper}</span>
+      )}
       {error && (
-        <span className="mt-1 block text-sm text-red-700" role="alert">
+        <span className="mt-1 block text-sm font-semibold text-red-100" role="alert">
           {error}
         </span>
       )}

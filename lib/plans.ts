@@ -6,10 +6,6 @@ export const PLANS: {
   name: string;
   priceCad: number;
   durationMin: number;
-  envSlugKey:
-    | "NEXT_PUBLIC_CAL_EVENT_SUPPLEMENT"
-    | "NEXT_PUBLIC_CAL_EVENT_NUTRITION"
-    | "NEXT_PUBLIC_CAL_EVENT_PREMIUM";
   bullets: string[];
 }[] = [
   {
@@ -17,7 +13,6 @@ export const PLANS: {
     name: "Supplement Plan",
     priceCad: 75,
     durationMin: 45,
-    envSlugKey: "NEXT_PUBLIC_CAL_EVENT_SUPPLEMENT",
     bullets: [
       "Dog's health history",
       "Your goals and concerns",
@@ -31,7 +26,6 @@ export const PLANS: {
     name: "Nutrition Plan",
     priceCad: 120,
     durationMin: 60,
-    envSlugKey: "NEXT_PUBLIC_CAL_EVENT_NUTRITION",
     bullets: [
       "Dog's health history",
       "Current and past food as well as supplements",
@@ -49,7 +43,6 @@ export const PLANS: {
     name: "Premium Consultation Plan",
     priceCad: 160,
     durationMin: 90,
-    envSlugKey: "NEXT_PUBLIC_CAL_EVENT_PREMIUM",
     bullets: [
       "Dog's health history",
       "Current and past food as well as supplements",
@@ -63,7 +56,3 @@ export const PLANS: {
     ],
   },
 ];
-
-export function getPlan(id: string) {
-  return PLANS.find((plan) => plan.id === id);
-}

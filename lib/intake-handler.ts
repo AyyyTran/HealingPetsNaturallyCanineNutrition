@@ -31,9 +31,7 @@ export async function handleIntakePost(
     return Response.json({ ok: false, error: "rate" }, { status: 429 });
   }
 
-  const { subject, text, clientSubject, clientText } = formatIntakeEmail(
-    parsed.data,
-  );
+  const { subject, text } = formatIntakeEmail(parsed.data);
   const transport = getTransport();
 
   try {
@@ -42,12 +40,6 @@ export async function handleIntakePost(
       to: process.env.CLIENT_EMAIL,
       subject,
       text,
-    });
-    await transport.sendMail({
-      from: process.env.EMAIL_USER,
-      to: { address: parsed.data.email, name: parsed.data.name },
-      subject: clientSubject,
-      text: clientText,
     });
   } catch {
     return Response.json({ ok: false, error: "email" }, { status: 500 });

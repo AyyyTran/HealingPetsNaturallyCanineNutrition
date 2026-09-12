@@ -16,20 +16,16 @@ Copy `.env.example` to `.env.local` and configure:
 - `EMAIL_USER`
 - `EMAIL_PASSWORD`
 - `CLIENT_EMAIL`
-- `NEXT_PUBLIC_CAL_USERNAME`
-- `NEXT_PUBLIC_CAL_EVENT_SUPPLEMENT`
-- `NEXT_PUBLIC_CAL_EVENT_NUTRITION`
-- `NEXT_PUBLIC_CAL_EVENT_PREMIUM`
 
-## Cal.com setup
+`CLIENT_EMAIL` is the inbox that receives contact-form submissions
+(`info@healingpetsnutrition.com`).
 
-Use Andy's Cal.com account and create three event types for the 45-, 60-, and
-90-minute consultation plans. Set availability to 9:00–17:00 in
-`America/Los_Angeles`, with minimum notice requiring bookings to be made no
-earlier than the next day.
+## Booking
 
-Before Karissa takes calls, connect her Google Calendar in Cal.com as both the
-conflict calendar and the destination calendar.
+`/book` is the V1 contact form: personal info, pet intake, a requested
+date/time (tomorrow or later, 9:00 AM–5:00 PM Pacific, on the hour), and the
+$30 e-transfer deposit note. Submit emails that to `CLIENT_EMAIL`. There is no
+live calendar booking. Karissa follows up by email.
 
 ## Vercel deployment
 
@@ -38,11 +34,7 @@ empty Root Directory), **not** `frontend`. The production domain is already
 attached. Deploy through the Git integration, or run `vercel --prod` while
 authenticated to the correct Vercel account.
 
-Set all `NEXT_PUBLIC_CAL_*` variables in Vercel before starting the production
-build because Next.js bakes public environment values into the client bundle.
-Changing them later requires a new production deployment. Missing values do
-not fail the build; local development and unconfigured deployments show
-fallback scheduling copy.
+Set `EMAIL_USER`, `EMAIL_PASSWORD`, and `CLIENT_EMAIL` on Vercel.
 
 Andy does not pay the domain registrar. Karissa/the business owns the domain
 and pays whatever the registrar charges to renew it. Andy's only old hosting
@@ -60,10 +52,9 @@ npm run build
 Manual checklist before go-live:
 
 - [ ] `/` and `/book` on desktop and a phone-sized viewport
-- [ ] Wizard validates each step
-- [ ] Successful intake emails Karissa and the client, then shows Cal.com
-- [ ] Failed intake stays on the deposit step with retry (Cal.com does not open)
-- [ ] Deposit copy visible before the calendar
-- [ ] Scheduler fallback "Open scheduler" link on the calendar step
+- [ ] Form validates required fields
+- [ ] Successful submit emails Karissa
+- [ ] Failed submit stays on the form with retry
+- [ ] Deposit copy visible on the form
 - [ ] `rg herokuapp` in `app/`, `components/`, `lib/`, `README` finds nothing
       (historical mentions may remain in `docs/superpowers` V1 context)

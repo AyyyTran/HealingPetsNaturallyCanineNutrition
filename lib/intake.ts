@@ -1,10 +1,9 @@
-import { getPlan, type PlanId } from "./plans";
+import { parseAppointment } from "./appointment";
 
 const EMAIL_RE = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/;
 const PHONE_RE = /^\d{3}-\d{3}-\d{4}$/;
 
 export type Intake = {
-  planId: PlanId;
   name: string;
   address: string;
   email: string;
@@ -16,6 +15,9 @@ export type Intake = {
   issues: string;
   raw: string;
   qa: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  appointmentLabel: string;
 };
 
 function str(value: unknown) {
@@ -24,6 +26,7 @@ function str(value: unknown) {
 
 export function parseIntake(
   body: unknown,
+  now = new Date(),
 ): { ok: true; data: Intake } | { ok: false; errors: Record<string, string> } {
   if (typeof body !== "object" || body === null) {
     return { ok: false, errors: { form: "invalid" } };
@@ -34,9 +37,6 @@ export function parseIntake(
   }
 
   const errors: Record<string, string> = {};
-  const plan = getPlan(str(input.planId));
-  if (!plan) errors.planId = "Please choose a plan";
-
   const name = str(input.name);
   const address = str(input.address);
   const email = str(input.email);
@@ -53,6 +53,9 @@ export function parseIntake(
   const issues = str(input.issues);
   const raw = str(input.raw);
   const qa = str(input.qa);
+  const appointmentDate = str(input.appointmentDate);
+  const appointmentTime = str(input.appointmentTime);
+  const appointment = parseAppointment(appointmentDate, appointmentTime, now);
 
   if (!name) errors.name = "Name is required";
   if (!address) errors.address = "Address is required";
@@ -65,13 +68,15 @@ export function parseIntake(
   if (!allergies) errors.allergies = "This field is required";
   if (!weight) errors.weight = "This field is required";
   if (!issues) errors.issues = "This field is required";
-  if (!raw) errors.raw = "This field is required";
-
-  if (Object.keys(errors).length > 0) return { ok: false, errors };
+  if (!appointment.ok) {
+    errors.appointmentDate = appointment.error;
+  }
+  if (Object.keys(errors).length > 0 || !appointment.ok) {
+    return { ok: false, errors };
+  }
   return {
     ok: true,
     data: {
-      planId: plan!.id,
       name,
       address,
       email,
@@ -83,6 +88,9 @@ export function parseIntake(
       issues,
       raw,
       qa,
+      appointmentDate: appointment.date,
+      appointmentTime: appointment.time,
+      appointmentLabel: appointment.label,
     },
   };
 }

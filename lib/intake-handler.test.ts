@@ -9,7 +9,6 @@ vi.mock("./mailer", () => ({
 import { handleIntakePost } from "./intake-handler";
 
 const payload = {
-  planId: "nutrition",
   name: "Jane Doe",
   address: "123 Main St",
   email: "jane@example.com",
@@ -21,6 +20,8 @@ const payload = {
   issues: "None",
   raw: "Yes",
   qa: "",
+  appointmentDate: "2099-01-15",
+  appointmentTime: "10:00",
   website: "",
 };
 
@@ -42,7 +43,7 @@ describe("handleIntakePost", () => {
     expect(res.status).toBe(400);
   });
 
-  it("sends two emails and returns 200", async () => {
+  it("sends one email to Karissa and returns 200", async () => {
     sendMail.mockResolvedValue({});
     const res = await handleIntakePost(
       new Request("http://local/api/intake", {
@@ -52,11 +53,11 @@ describe("handleIntakePost", () => {
       }),
     );
     expect(res.status).toBe(200);
-    expect(sendMail).toHaveBeenCalledTimes(2);
-    expect(sendMail).toHaveBeenNthCalledWith(
-      2,
+    expect(sendMail).toHaveBeenCalledTimes(1);
+    expect(sendMail).toHaveBeenCalledWith(
       expect.objectContaining({
-        to: { address: payload.email, name: payload.name },
+        to: "karissa@test.com",
+        subject: "Contact Form Details",
       }),
     );
   });

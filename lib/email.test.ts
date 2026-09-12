@@ -3,7 +3,6 @@ import { formatIntakeEmail } from "./email";
 import type { Intake } from "./intake";
 
 const intake: Intake = {
-  planId: "premium",
   name: "Jane Doe",
   address: "123 Main St",
   email: "jane@example.com",
@@ -15,16 +14,19 @@ const intake: Intake = {
   issues: "Yeast",
   raw: "Yes",
   qa: "None",
+  appointmentDate: "2026-09-12",
+  appointmentTime: "09:00",
+  appointmentLabel: "September 12, 2026 at 9:00 AM Pacific",
 };
 
 describe("formatIntakeEmail", () => {
-  it("includes plan, pet, and contact fields for Karissa", () => {
+  it("includes the requested time and intake fields for Karissa", () => {
     const mail = formatIntakeEmail(intake);
-    expect(mail.subject).toContain("Premium Consultation Plan");
-    expect(mail.subject).toContain("Rusty");
+    expect(mail.subject).toBe("Contact Form Details");
     expect(mail.text).toContain("jane@example.com");
+    expect(mail.text).toContain("Rusty");
     expect(mail.text).toContain("Chicken");
-    expect(mail.clientText).toContain("$30");
-    expect(mail.clientText).toContain("info@healingpetsnutrition.com");
+    expect(mail.text).toContain("September 12, 2026 at 9:00 AM Pacific");
+    expect(mail.text).toContain("$30");
   });
 });
