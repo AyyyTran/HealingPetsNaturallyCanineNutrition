@@ -11,21 +11,24 @@ const certifications = [
 
 export function Certifications() {
   return (
-    <section
-      id="certifications"
-      className="scroll-mt-24 bg-primary px-6 py-16"
-    >
-      <h1 className="text-center text-3xl text-grey">Certifications</h1>
-      <div className="mx-auto mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
+    <section id="certifications" className="scroll-mt-24 px-6 py-16 sm:py-20">
+      <h2 className="text-center text-3xl font-semibold text-darkblue sm:text-4xl">
+        Certifications
+      </h2>
+      <div className="mx-auto mt-8 flex max-w-6xl snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
         {certifications.map(([src, alt, width, height]) => (
-          <Image
+          <figure
             key={src}
-            src={`/${src}`}
-            alt={alt}
-            width={width}
-            height={height}
-            className="h-auto w-full rounded-xl"
-          />
+            className="min-w-[80%] snap-center sm:min-w-[55%] md:min-w-0"
+          >
+            <Image
+              src={`/${src}`}
+              alt={alt}
+              width={width}
+              height={height}
+              className="h-auto w-full rounded-2xl bg-white object-contain shadow-sm ring-1 ring-darkblue/10"
+            />
+          </figure>
         ))}
       </div>
     </section>

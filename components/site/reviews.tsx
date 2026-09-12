@@ -33,20 +33,20 @@ const reviews = [
 
 export function Reviews() {
   return (
-    <section id="reviews" className="scroll-mt-24 px-6 py-16">
-      <h1 className="text-center text-3xl">Reviews</h1>
+    <section id="reviews" className="scroll-mt-24 px-6 py-16 sm:py-20">
+      <h2 className="text-center text-3xl font-semibold text-darkblue sm:text-4xl">
+        Reviews
+      </h2>
       <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-6">
         {reviews.map((review) => (
           <article
             key={review.author}
-            className="rounded-lg bg-secondary p-6 text-grey shadow-xl transition hover:-translate-y-0.5 sm:p-8"
+            className="rounded-2xl bg-secondary p-6 text-white shadow-sm sm:p-8"
           >
             <blockquote>
               <p className="text-lg leading-relaxed">{review.quote}</p>
             </blockquote>
-            <p className="mt-5 text-right text-xl font-medium">
-              {review.author}
-            </p>
+            <p className="mt-5 text-right text-lg font-medium">{review.author}</p>
           </article>
         ))}
       </div>

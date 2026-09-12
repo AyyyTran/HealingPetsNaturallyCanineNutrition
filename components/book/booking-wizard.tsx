@@ -45,7 +45,7 @@ const INITIAL_FORM: BookingForm = {
 };
 
 const fieldClass =
-  "mt-2 w-full rounded-lg border border-darkblue/25 bg-white px-4 py-3 text-darkblue outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20";
+  "mt-2 w-full rounded-lg border border-darkblue/20 bg-white px-4 py-3 text-darkblue outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20";
 
 export async function submitIntake(
   form: BookingForm,
@@ -136,20 +136,23 @@ export function BookingWizard() {
 
   if (sent) {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-        <section className="rounded-2xl bg-white p-6 text-center shadow-sm sm:p-10">
-          <h1 className="text-3xl font-semibold">Email Sent Successfully!</h1>
+      <main className="mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-20">
+        <section className="rounded-2xl border border-darkblue/10 bg-white p-8 text-center shadow-sm sm:p-12">
+          <h1 className="text-3xl font-semibold text-darkblue">
+            Email Sent Successfully!
+          </h1>
         </section>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-      <section className="rounded-2xl bg-primary p-6 text-white shadow-sm sm:p-10">
-        <h1 className="text-3xl font-semibold text-darkblue">Contact Us</h1>
-        <form className="mt-8 grid gap-6" onSubmit={onSubmit}>
-          <p className="text-lg">Personal Information</p>
+    <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
+      <h1 className="text-3xl font-semibold text-darkblue sm:text-4xl">
+        Contact Us
+      </h1>
+      <form className="mt-8 grid gap-6" onSubmit={onSubmit}>
+        <FormCard title="Personal Information">
           <Field label="Name:" error={errors.name}>
             <input
               autoComplete="name"
@@ -194,9 +197,10 @@ export function BookingWizard() {
               onChange={update("phone")}
             />
           </Field>
+        </FormCard>
 
-          <p className="mt-4 text-lg">Pet Information</p>
-          <p>
+        <FormCard title="Pet Information">
+          <p className="text-sm leading-relaxed text-darkblue/75 sm:text-base">
             Please fill out all the fields with as much detail as possible as I
             can prepare more accurate advice and to save time for the actual
             consultation
@@ -227,7 +231,7 @@ export function BookingWizard() {
               className={fieldClass}
               placeholder="Ex: Allergic to fish, chicken and has troubles digesting seeds. Currently being fed dog food and no supplements."
               required
-              rows={8}
+              rows={6}
               value={form.allergies}
               onChange={update("allergies")}
             />
@@ -240,7 +244,7 @@ export function BookingWizard() {
               className={fieldClass}
               placeholder="Ex: Rusty is not very active. Only an hour of outside time daily. Currently weighs 150lbs but want him to be a healthier weight. Currently fed 3 meals a day plus dog treats and dental stick."
               required
-              rows={8}
+              rows={6}
               value={form.weight}
               onChange={update("weight")}
             />
@@ -253,7 +257,7 @@ export function BookingWizard() {
               className={fieldClass}
               placeholder="Ex: Rusty used to have obesity and now is struggling with arthritis."
               required
-              rows={8}
+              rows={6}
               value={form.issues}
               onChange={update("issues")}
             />
@@ -265,7 +269,7 @@ export function BookingWizard() {
             <textarea
               className={fieldClass}
               placeholder="Ex: Yes, we are open to including some raw or homemade foods into the diet."
-              rows={6}
+              rows={4}
               value={form.raw}
               onChange={update("raw")}
             />
@@ -273,20 +277,19 @@ export function BookingWizard() {
           <Field label="Any Questions or Concerns?" error={errors.qa}>
             <textarea
               className={fieldClass}
-              rows={6}
+              rows={4}
               value={form.qa}
               onChange={update("qa")}
             />
           </Field>
+        </FormCard>
 
-          <p className="pt-4 text-center text-3xl font-bold">
-            Book An Appointment Date & Time!
-          </p>
-          <p className="text-center text-xl font-bold">
+        <FormCard title="Book An Appointment Date & Time!">
+          <p className="rounded-xl bg-primary/15 px-4 py-3 text-center text-sm font-semibold text-darkblue sm:text-base">
             NOTE: ALL APPOINTMENTS REQUIRE A $30 DEPOSIT TO BE BOOKED.
-          </p>
-          <p className="text-center text-xl font-bold">
-            E-Transfer deposit to info@healingpetsnutrition.com
+            <span className="mt-1 block font-medium">
+              E-Transfer deposit to info@healingpetsnutrition.com
+            </span>
           </p>
           <Field label="Appointment date" error={errors.appointmentDate}>
             <input
@@ -313,31 +316,46 @@ export function BookingWizard() {
               ))}
             </select>
           </Field>
+        </FormCard>
 
-          {submitError && (
-            <p className="rounded-lg bg-white p-3 font-semibold text-red-700" role="alert">
-              {submitError}
-            </p>
-          )}
-          <input
-            aria-hidden="true"
-            autoComplete="off"
-            className="absolute -left-[9999px] h-px w-px"
-            name="website"
-            tabIndex={-1}
-            value={form.website}
-            onChange={update("website")}
-          />
-          <button
-            className="mx-auto my-4 w-32 rounded-lg bg-white p-2 font-bold text-darkblue disabled:opacity-50"
-            disabled={sending}
-            type="submit"
-          >
-            {sending ? "Sending…" : "Submit"}
-          </button>
-        </form>
-      </section>
+        {submitError && (
+          <p className="rounded-lg bg-red-50 p-3 font-semibold text-red-700" role="alert">
+            {submitError}
+          </p>
+        )}
+        <input
+          aria-hidden="true"
+          autoComplete="off"
+          className="absolute -left-[9999px] h-px w-px"
+          name="website"
+          tabIndex={-1}
+          value={form.website}
+          onChange={update("website")}
+        />
+        <button
+          className="w-full rounded-full bg-primary px-6 py-3.5 text-lg font-semibold text-white transition hover:bg-secondary disabled:opacity-50 sm:mx-auto sm:max-w-xs"
+          disabled={sending}
+          type="submit"
+        >
+          {sending ? "Sending…" : "Submit"}
+        </button>
+      </form>
     </main>
+  );
+}
+
+function FormCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-2xl border border-darkblue/10 bg-white p-6 shadow-sm sm:p-8">
+      <h2 className="text-xl font-semibold text-darkblue">{title}</h2>
+      <div className="mt-6 grid gap-5">{children}</div>
+    </section>
   );
 }
 
@@ -353,14 +371,14 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <label className="block text-start">
+    <label className="block text-start text-darkblue">
       {label}
       {children}
       {helper && (
-        <span className="mt-1 block text-sm text-white/80">{helper}</span>
+        <span className="mt-1 block text-sm text-darkblue/70">{helper}</span>
       )}
       {error && (
-        <span className="mt-1 block text-sm font-semibold text-red-100" role="alert">
+        <span className="mt-1 block text-sm font-semibold text-red-700" role="alert">
           {error}
         </span>
       )}

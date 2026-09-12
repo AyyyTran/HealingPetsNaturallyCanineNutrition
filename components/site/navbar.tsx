@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 const links = [
-  ["About", "/#about"],
-  ["Services", "/#services"],
   ["Plans", "/#plans"],
+  ["Services", "/#services"],
+  ["About", "/#about"],
   ["Reviews", "/#reviews"],
 ] as const;
 
@@ -42,7 +42,7 @@ export function Navbar() {
 
         <Link
           href="/book"
-          className="hidden rounded-full bg-primary px-5 py-3 text-lg font-bold transition hover:bg-white hover:text-secondary lg:block"
+          className="hidden rounded-full bg-primary px-5 py-3 text-lg font-semibold transition hover:bg-white hover:text-secondary lg:block"
         >
           Let&apos;s Talk
         </Link>
